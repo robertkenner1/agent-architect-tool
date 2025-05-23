@@ -28,11 +28,10 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
     2. **Capability** – Can we build this well with our current abilities?
     DESCRIPTION: Reflects how well current AI systems can perform the task with accuracy, clarity, and user trust. It evaluates technical feasibility, safety, and whether the task has clear input/output boundaries suitable for automation.
     LABELS:
-       • XS – trivial prompt-only  
-       • S  – straightforward with off-the-shelf models  
-       • M  – needs fine-tuning + heuristics  
-       • L  – requires custom data pipelines & rigorous evals  
-       • XL – research-grade; not possible today
+       • Extra Large – research-grade; not possible today
+       • Large – requires custom data pipelines & rigorous evals
+       • Medium – needs fine-tuning + heuristics
+       • Small – straightforward with off-the-shelf models
     
     3. **Strategic Alignment** – Does this fit our brand and goals?
     DESCRIPTION: Measures how well a use case fits our brand, product strategy, and target segments. Reinforces our right-to-win or opens aligned, valuable new territory for adoption, expansion, upsell leverage, and innovation signaling.
@@ -57,7 +56,7 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
     
     {
       "Relevance":   { "score": "<High|Medium|Low>", "rationale": "<one sentence>" },
-      "Capability":  { "score": "<XS|S|M|L|XL>",    "rationale": "<one sentence>" },
+      "Capability":  { "score": "<Extra Large|Large|Medium|Small>",    "rationale": "<one sentence>" },
       "StrategicAlignment": { "score": "<High|Medium|Low>", "rationale": "<one sentence>" },
       "BusinessImpact": { "score": "<Right-to-Win|Double-Down|Expand>", "rationale": "<one sentence>" }
     }
@@ -423,7 +422,7 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
     {
       "Prioritize": {
         "Relevance":   { "score": "<High|Medium|Low>", "rationale": "<one sentence>" },
-        "Capability":  { "score": "<XS|S|M|L|XL>",    "rationale": "<one sentence>" },
+        "Capability":  { "score": "<Extra Large|Large|Medium|Small>",    "rationale": "<one sentence>" },
         "StrategicAlignment": { "score": "<High|Medium|Low>", "rationale": "<one sentence>" },
         "BusinessImpact": { "score": "<Right-to-Win|Double-Down|Expand>", "rationale": "<one sentence>" }
       },
