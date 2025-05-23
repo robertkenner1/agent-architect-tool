@@ -5,10 +5,32 @@ import { getAgentFeedback } from '@/utils/agentPrompts';
 
 // First, create a type for the feedback JSON structure
 type FeedbackData = {
-  Relevance: { score: string; rationale: string };
-  Capability: { score: string; rationale: string };
-  StrategicAlignment: { score: string; rationale: string };
-  BusinessImpact: { score: string; rationale: string };
+  Prioritize: {
+    Relevance: { score: string; rationale: string };
+    Capability: { score: string; rationale: string };
+    StrategicAlignment: { score: string; rationale: string };
+    BusinessImpact: { score: string; rationale: string };
+  };
+  Market: {
+    UserType: { label: string; rationale: string };
+    BehavioralSegment: { label: string; rationale: string };
+    UserAIMindset: { label: string; rationale: string };
+  };
+  Build: {
+    Scope: { score: number; rationale: string };
+    Anchor: { score: number; rationale: string };
+    Control: { score: number; rationale: string };
+    Humanity: { score: number; rationale: string };
+    Mediation: { score: number; rationale: string };
+  };
+  Evaluate: {
+    SuccessConditionSummary: {
+      TargetedUseCase: string;
+      AIReadinessAndResonance: string;
+      PerceivedQuality: string;
+      PerceivedValue: string;
+    };
+  };
 };
 
 export default function AISuccessBlueprint() {
@@ -93,81 +115,236 @@ export default function AISuccessBlueprint() {
                 {error && <p className="text-red-600">{error}</p>}
                 
                 {feedbackData && (
-                  <div className="space-y-6">
-                    {/* Relevance Section */}
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="bg-blue-50 px-4 py-2 border-b">
-                        <div className="flex justify-between items-center">
-                          <h3 className="font-semibold text-blue-800">Relevance</h3>
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            feedbackData.Relevance.score === 'High' ? 'bg-green-100 text-green-800' :
-                            feedbackData.Relevance.score === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {feedbackData.Relevance.score}
-                          </span>
+                  <div className="space-y-8">
+                    {/* Prioritize Section */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Prioritize</h3>
+                      <div className="space-y-6 bg-blue-50 p-6 rounded-lg">
+                        {/* Relevance Section */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Relevance</h3>
+                          <div className="flex items-center mb-3">
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              feedbackData.Prioritize.Relevance.score === 'High' ? 'bg-green-100 text-green-800' :
+                              feedbackData.Prioritize.Relevance.score === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'
+                            }`}>
+                              {feedbackData.Prioritize.Relevance.score}
+                            </span>
+                          </div>
+                          <p className="text-black">{feedbackData.Prioritize.Relevance.rationale}</p>
                         </div>
-                      </div>
-                      <div className="p-4 bg-white">
-                        <p className="text-black">{feedbackData.Relevance.rationale}</p>
+                        
+                        {/* Capability Section */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Capability</h3>
+                          <div className="flex items-center mb-3">
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              ['XL', 'L'].includes(feedbackData.Prioritize.Capability.score) ? 'bg-green-100 text-green-800' :
+                              ['M'].includes(feedbackData.Prioritize.Capability.score) ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'
+                            }`}>
+                              {feedbackData.Prioritize.Capability.score}
+                            </span>
+                          </div>
+                          <p className="text-black">{feedbackData.Prioritize.Capability.rationale}</p>
+                        </div>
+                        
+                        {/* Strategic Alignment Section */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Strategic Alignment</h3>
+                          <div className="flex items-center mb-3">
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              feedbackData.Prioritize.StrategicAlignment.score === 'High' ? 'bg-green-100 text-green-800' :
+                              feedbackData.Prioritize.StrategicAlignment.score === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'
+                            }`}>
+                              {feedbackData.Prioritize.StrategicAlignment.score}
+                            </span>
+                          </div>
+                          <p className="text-black">{feedbackData.Prioritize.StrategicAlignment.rationale}</p>
+                        </div>
+                        
+                        {/* Business Impact Section */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Business Impact</h3>
+                          <div className="flex items-center mb-3">
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              feedbackData.Prioritize.BusinessImpact.score === 'Right-to-Win' ? 'bg-green-100 text-green-800' :
+                              feedbackData.Prioritize.BusinessImpact.score === 'Double-Down' ? 'bg-blue-100 text-blue-800' :
+                              feedbackData.Prioritize.BusinessImpact.score === 'Expand' ? 'bg-purple-100 text-purple-800' :
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {feedbackData.Prioritize.BusinessImpact.score}
+                            </span>
+                          </div>
+                          <p className="text-black">{feedbackData.Prioritize.BusinessImpact.rationale}</p>
+                        </div>
                       </div>
                     </div>
                     
-                    {/* Capability Section */}
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="bg-purple-50 px-4 py-2 border-b">
-                        <div className="flex justify-between items-center">
-                          <h3 className="font-semibold text-purple-800">Capability</h3>
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            ['XL', 'L'].includes(feedbackData.Capability.score) ? 'bg-green-100 text-green-800' :
-                            ['M'].includes(feedbackData.Capability.score) ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {feedbackData.Capability.score}
-                          </span>
+                    {/* Market Section */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Market</h3>
+                      <div className="space-y-6 bg-indigo-50 p-6 rounded-lg">
+                        {/* User Type */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">User Type</h3>
+                          <div className="flex items-center mb-3">
+                            <span className="px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                              {feedbackData.Market.UserType.label}
+                            </span>
+                          </div>
+                          <p className="text-black">{feedbackData.Market.UserType.rationale}</p>
                         </div>
-                      </div>
-                      <div className="p-4 bg-white">
-                        <p className="text-black">{feedbackData.Capability.rationale}</p>
+                        
+                        {/* Behavioral Segment */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Behavioral Segment</h3>
+                          <div className="flex items-center mb-3">
+                            <span className="px-3 py-1 rounded-full text-sm font-medium bg-pink-100 text-pink-800">
+                              {feedbackData.Market.BehavioralSegment.label}
+                            </span>
+                          </div>
+                          <p className="text-black">{feedbackData.Market.BehavioralSegment.rationale}</p>
+                        </div>
+                        
+                        {/* User AI Mindset */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">User AI Mindset</h3>
+                          <div className="flex items-center mb-3">
+                            <span className="px-3 py-1 rounded-full text-sm font-medium bg-teal-100 text-teal-800">
+                              {feedbackData.Market.UserAIMindset.label}
+                            </span>
+                          </div>
+                          <p className="text-black">{feedbackData.Market.UserAIMindset.rationale}</p>
+                        </div>
                       </div>
                     </div>
                     
-                    {/* Strategic Alignment Section */}
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="bg-green-50 px-4 py-2 border-b">
-                        <div className="flex justify-between items-center">
-                          <h3 className="font-semibold text-green-800">Strategic Alignment</h3>
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            feedbackData.StrategicAlignment.score === 'High' ? 'bg-green-100 text-green-800' :
-                            feedbackData.StrategicAlignment.score === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {feedbackData.StrategicAlignment.score}
-                          </span>
+                    {/* Build Section */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Build</h3>
+                      <div className="space-y-8 bg-amber-50 p-6 rounded-lg">
+                        {/* Scope */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Scope: <span className="font-normal">General <span className="text-gray-400 mx-2">&lt;-&gt;</span> Specialized</span></h3>
+                          <div className="mt-3 relative">
+                            <div className="w-full h-[2px] bg-gray-300 rounded">
+                              <div className="absolute left-0 right-0 flex justify-between -top-1">
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                              </div>
+                              <div 
+                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                style={{ left: `${feedbackData.Build.Scope.score}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                          <p className="mt-4 text-black">{feedbackData.Build.Scope.rationale}</p>
                         </div>
-                      </div>
-                      <div className="p-4 bg-white">
-                        <p className="text-black">{feedbackData.StrategicAlignment.rationale}</p>
+                        
+                        {/* Anchor */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Anchor: <span className="font-normal">User <span className="text-gray-400 mx-2">&lt;-&gt;</span> Task</span></h3>
+                          <div className="mt-3 relative">
+                            <div className="w-full h-[2px] bg-gray-300 rounded">
+                              <div className="absolute left-0 right-0 flex justify-between -top-1">
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                              </div>
+                              <div 
+                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                style={{ left: `${feedbackData.Build.Anchor.score}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                          <p className="mt-4 text-black">{feedbackData.Build.Anchor.rationale}</p>
+                        </div>
+                        
+                        {/* Control */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Control: <span className="font-normal">Governed <span className="text-gray-400 mx-2">&lt;-&gt;</span> Autonomous</span></h3>
+                          <div className="mt-3 relative">
+                            <div className="w-full h-[2px] bg-gray-300 rounded">
+                              <div className="absolute left-0 right-0 flex justify-between -top-1">
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                              </div>
+                              <div 
+                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                style={{ left: `${feedbackData.Build.Control.score}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                          <p className="mt-4 text-black">{feedbackData.Build.Control.rationale}</p>
+                        </div>
+                        
+                        {/* Humanity */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Humanity: <span className="font-normal">Person Like <span className="text-gray-400 mx-2">&lt;-&gt;</span> Tool Like</span></h3>
+                          <div className="mt-3 relative">
+                            <div className="w-full h-[2px] bg-gray-300 rounded">
+                              <div className="absolute left-0 right-0 flex justify-between -top-1">
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                              </div>
+                              <div 
+                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                style={{ left: `${feedbackData.Build.Humanity.score}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                          <p className="mt-4 text-black">{feedbackData.Build.Humanity.rationale}</p>
+                        </div>
+                        
+                        {/* Mediation */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Mediation: <span className="font-normal">Hierarchical <span className="text-gray-400 mx-2">&lt;-&gt;</span> Collaborative</span></h3>
+                          <div className="mt-3 relative">
+                            <div className="w-full h-[2px] bg-gray-300 rounded">
+                              <div className="absolute left-0 right-0 flex justify-between -top-1">
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
+                              </div>
+                              <div 
+                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                style={{ left: `${feedbackData.Build.Mediation.score}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                          <p className="mt-4 text-black">{feedbackData.Build.Mediation.rationale}</p>
+                        </div>
                       </div>
                     </div>
                     
-                    {/* Business Impact Section */}
-                    <div className="border rounded-lg overflow-hidden">
-                      <div className="bg-amber-50 px-4 py-2 border-b">
-                        <div className="flex justify-between items-center">
-                          <h3 className="font-semibold text-amber-800">Business Impact</h3>
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            feedbackData.BusinessImpact.score === 'Core' ? 'bg-green-100 text-green-800' :
-                            feedbackData.BusinessImpact.score === 'Expand' ? 'bg-blue-100 text-blue-800' :
-                            feedbackData.BusinessImpact.score === 'Explore' ? 'bg-purple-100 text-purple-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {feedbackData.BusinessImpact.score}
-                          </span>
+                    {/* Evaluate Section */}
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">Success Condition Summary</h3>
+                      <div className="space-y-6 bg-purple-50 p-6 rounded-lg">
+                        {/* Targeted Use Case */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Targeted Use Case</h3>
+                          <p className="text-black">{feedbackData.Evaluate.SuccessConditionSummary.TargetedUseCase}</p>
                         </div>
-                      </div>
-                      <div className="p-4 bg-white">
-                        <p className="text-black">{feedbackData.BusinessImpact.rationale}</p>
+                        
+                        {/* AI Readiness & Resonance */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">AI Readiness & Resonance</h3>
+                          <p className="text-black">{feedbackData.Evaluate.SuccessConditionSummary.AIReadinessAndResonance}</p>
+                        </div>
+                        
+                        {/* Perceived Quality */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Perceived Quality</h3>
+                          <p className="text-black">{feedbackData.Evaluate.SuccessConditionSummary.PerceivedQuality}</p>
+                        </div>
+                        
+                        {/* Perceived Value */}
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">Perceived Value</h3>
+                          <p className="text-black">{feedbackData.Evaluate.SuccessConditionSummary.PerceivedValue}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
