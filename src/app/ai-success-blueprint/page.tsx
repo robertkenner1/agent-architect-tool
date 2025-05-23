@@ -232,8 +232,8 @@ export default function AISuccessBlueprint() {
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
                               <div 
-                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
-                                style={{ left: `${feedbackData.Build.Scope.score}%` }}
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 transform"
+                                style={{ left: `${((feedbackData.Build.Scope.score - 1) / 4) * 100}%` }}
                               ></div>
                             </div>
                           </div>
@@ -246,8 +246,8 @@ export default function AISuccessBlueprint() {
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
                               <div 
-                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
-                                style={{ left: `${feedbackData.Build.Anchor.score}%` }}
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 transform"
+                                style={{ left: `${((feedbackData.Build.Anchor.score - 1) / 4) * 100}%` }}
                               ></div>
                             </div>
                           </div>
@@ -260,8 +260,8 @@ export default function AISuccessBlueprint() {
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
                               <div 
-                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
-                                style={{ left: `${feedbackData.Build.Control.score}%` }}
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 transform"
+                                style={{ left: `${((feedbackData.Build.Control.score - 1) / 4) * 100}%` }}
                               ></div>
                             </div>
                           </div>
@@ -274,8 +274,8 @@ export default function AISuccessBlueprint() {
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
                               <div 
-                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
-                                style={{ left: `${feedbackData.Build.Humanity.score}%` }}
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 transform"
+                                style={{ left: `${((feedbackData.Build.Humanity.score - 1) / 4) * 100}%` }}
                               ></div>
                             </div>
                           </div>
@@ -288,8 +288,8 @@ export default function AISuccessBlueprint() {
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
                               <div 
-                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
-                                style={{ left: `${feedbackData.Build.Mediation.score}%` }}
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 transform"
+                                style={{ left: `${((feedbackData.Build.Mediation.score - 1) / 4) * 100}%` }}
                               ></div>
                             </div>
                           </div>

@@ -303,8 +303,11 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
     ### Building Dimensions and percentage scales
 
     1. Scope  
-      • 0 %  = extremely general
-      • 100 % = extremely specialized
+      • 1 = Extremely general - Designed for any task across many domains
+      • 2 = Broadly general - Handles a wide range of related tasks
+      • 3 = Balanced - Mix of general capabilities with some specialization
+      • 4 = Specialized - Focused on a specific domain or type of task
+      • 5 = Highly specialized - Optimized for one specific task or workflow
       <helpul_context_about_scope>
       AI tools exist in a spectrum of generality versus specialization. Although all users would find it valuable for an AI tool to have some knowledge about the user and the context of their task, users have different preferences and tolerances for a tool that is general and all-purpose versus one that is single-task and specialized. 
 
@@ -314,8 +317,11 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       </helpul_context_about_scope>
 
     2. Anchor  
-      • 0 %  = entirely user-centric 
-      • 100 % = entirely task-centric 
+      • 1 = Strongly user-centric - Deeply personalized to individual user needs and preferences
+      • 2 = Moderately user-centric - Balances user focus with task completion
+      • 3 = Balanced - Equal emphasis on user needs and task requirements
+      • 4 = Moderately task-centric - Prioritizes task completion with some user consideration
+      • 5 = Strongly task-centric - Focused entirely on efficient task execution
       <helpul_context_about_anchor>
       Users often conceive of AI tools as being either more user-focused or task-focused. 
 
@@ -325,8 +331,11 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       </helpul_context_about_anchor>
 
     3. Control  
-      • 0 %  = fully autonomous;  
-      • 100 % = fully governed;  
+      • 1 = Fully autonomous - AI operates independently with no user oversight
+      • 2 = Mostly autonomous - AI acts independently but alerts user of major actions
+      • 3 = Balanced control - Equal mix of AI autonomy and user governance
+      • 4 = Mostly governed - User maintains primary control with some AI automation
+      • 5 = Fully governed - User has complete control over all AI actions
       <helpul_context_about_control>
       Users want the ability to exert control over agent actions. While the degree of desired control varies based on the user and task, the ability to control and manage agent actions is universally essential. 
 
@@ -345,8 +354,11 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       Users can fear the “unknown” of automation, unsure of the mistakes an AI tool can make and what to look out for when completing a task. 
       </helpul_context_about_control>
     4. Humanity  
-      • 0 %  = strongly person-like; 
-      • 100 % = strongly tool-like;   
+      • 1 = Strongly person-like - Acts like a human collaborator with personality and social awareness
+      • 2 = Moderately person-like - Exhibits some human-like traits while maintaining tool functionality
+      • 3 = Balanced - Equal blend of human-like and tool-like characteristics
+      • 4 = Moderately tool-like - Focuses on utility with minimal human-like qualities
+      • 5 = Strongly tool-like - Pure utility with no human-like characteristics
       <helpul_context_about_humanity>
       AI exhibiting “person-like” qualities enhances user comfort and fosters a sense of familiarity. Core attributes include retaining a memory of the user and past interactions, the ability to engage in a dialogue, and an inviting tone. 
 
@@ -355,8 +367,11 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       </helpul_context_about_humanity>
 
     5. Mediation  
-      • 0 %  = hierarchical;  
-      • 100 % = collaborative; 
+      • 1 = Strongly hierarchical - User directs and supervises all agent interactions from the top
+      • 2 = Moderately hierarchical - User maintains oversight with some agent collaboration
+      • 3 = Balanced - Mix of hierarchical control and collaborative interaction
+      • 4 = Moderately collaborative - Agents work together with user guidance
+      • 5 = Strongly collaborative - User and agents operate as equal participants in a network
       <helpul_context_about_mediation>
       Within a multi-agent experience, users conceived of two models for multi-agent mediation: 
 
@@ -378,11 +393,11 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
     ### Output format
 
     {
-      "Scope":     { "score": <0-100>, "rationale": "<one sentence>" },
-      "Anchor":    { "score": <0-100>, "rationale": "<one sentence>" },
-      "Control":   { "score": <0-100>, "rationale": "<one sentence>" },
-      "Humanity":  { "score": <0-100>, "rationale": "<one sentence>" },
-      "Mediation": { "score": <0-100>, "rationale": "<one sentence>" }
+      "Scope":     { "score": <1-5>, "rationale": "<one sentence>" },
+      "Anchor":    { "score": <1-5>, "rationale": "<one sentence>" }, 
+      "Control":   { "score": <1-5>, "rationale": "<one sentence>" },
+      "Humanity":  { "score": <1-5>, "rationale": "<one sentence>" },
+      "Mediation": { "score": <1-5>, "rationale": "<one sentence>" }
     }
       
     #### Executive Report
@@ -418,11 +433,11 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
         "UserAIMindset": { "label": "<Capable but Cautious|Engaged and Enabled|Interested but Inexperienced|Disengaged and Doubtful>", "rationale": "<one sentence>" }
       },
       "Build": {
-        "Scope": { "score": <0-100>, "rationale": "<one sentence>" },
-        "Anchor": { "score": <0-100>, "rationale": "<one sentence>" },
-        "Control": { "score": <0-100>, "rationale": "<one sentence>" },
-        "Humanity": { "score": <0-100>, "rationale": "<one sentence>" },
-        "Mediation": { "score": <0-100>, "rationale": "<one sentence>" }
+        "Scope":     { "score": <1-5>, "rationale": "<one sentence>" },
+        "Anchor":    { "score": <1-5>, "rationale": "<one sentence>" }, 
+        "Control":   { "score": <1-5>, "rationale": "<one sentence>" },
+        "Humanity":  { "score": <1-5>, "rationale": "<one sentence>" },
+        "Mediation": { "score": <1-5>, "rationale": "<one sentence>" }
       },
       "Evaluate": {
         "SuccessConditionSummary": {
