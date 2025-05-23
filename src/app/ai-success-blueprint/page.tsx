@@ -231,12 +231,8 @@ export default function AISuccessBlueprint() {
                           <h3 className="text-lg font-bold text-gray-900 mb-2">Scope: <span className="font-normal">General <span className="text-gray-400 mx-2">&lt;-&gt;</span> Specialized</span></h3>
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
-                              <div className="absolute left-0 right-0 flex justify-between -top-1">
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                              </div>
                               <div 
-                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
                                 style={{ left: `${feedbackData.Build.Scope.score}%` }}
                               ></div>
                             </div>
@@ -249,12 +245,8 @@ export default function AISuccessBlueprint() {
                           <h3 className="text-lg font-bold text-gray-900 mb-2">Anchor: <span className="font-normal">User <span className="text-gray-400 mx-2">&lt;-&gt;</span> Task</span></h3>
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
-                              <div className="absolute left-0 right-0 flex justify-between -top-1">
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                              </div>
                               <div 
-                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
                                 style={{ left: `${feedbackData.Build.Anchor.score}%` }}
                               ></div>
                             </div>
@@ -267,12 +259,8 @@ export default function AISuccessBlueprint() {
                           <h3 className="text-lg font-bold text-gray-900 mb-2">Control: <span className="font-normal">Governed <span className="text-gray-400 mx-2">&lt;-&gt;</span> Autonomous</span></h3>
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
-                              <div className="absolute left-0 right-0 flex justify-between -top-1">
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                              </div>
                               <div 
-                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
                                 style={{ left: `${feedbackData.Build.Control.score}%` }}
                               ></div>
                             </div>
@@ -285,12 +273,8 @@ export default function AISuccessBlueprint() {
                           <h3 className="text-lg font-bold text-gray-900 mb-2">Humanity: <span className="font-normal">Person Like <span className="text-gray-400 mx-2">&lt;-&gt;</span> Tool Like</span></h3>
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
-                              <div className="absolute left-0 right-0 flex justify-between -top-1">
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                              </div>
                               <div 
-                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
                                 style={{ left: `${feedbackData.Build.Humanity.score}%` }}
                               ></div>
                             </div>
@@ -303,12 +287,8 @@ export default function AISuccessBlueprint() {
                           <h3 className="text-lg font-bold text-gray-900 mb-2">Mediation: <span className="font-normal">Hierarchical <span className="text-gray-400 mx-2">&lt;-&gt;</span> Collaborative</span></h3>
                           <div className="mt-3 relative">
                             <div className="w-full h-[2px] bg-gray-300 rounded">
-                              <div className="absolute left-0 right-0 flex justify-between -top-1">
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                                <div className="h-4 w-4 rounded-full bg-gray-300"></div>
-                              </div>
                               <div 
-                                className="absolute h-6 w-6 bg-amber-500 rotate-45 top-1/2 -mt-3 -ml-3 transform"
+                                className="absolute h-5 w-5 bg-amber-500 rounded-full top-1/2 -mt-2.5 -ml-2.5 transform"
                                 style={{ left: `${feedbackData.Build.Mediation.score}%` }}
                               ></div>
                             </div>

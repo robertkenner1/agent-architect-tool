@@ -303,8 +303,8 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
     ### Building Dimensions and percentage scales
 
     1. Scope  
-      • 0 %  = extremely general, multipurpose tool  
-      • 100 % = extremely specialized, narrow domain focus
+      • 0 %  = extremely general
+      • 100 % = extremely specialized
       <helpul_context_about_scope>
       AI tools exist in a spectrum of generality versus specialization. Although all users would find it valuable for an AI tool to have some knowledge about the user and the context of their task, users have different preferences and tolerances for a tool that is general and all-purpose versus one that is single-task and specialized. 
 
@@ -314,8 +314,8 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       </helpul_context_about_scope>
 
     2. Anchor  
-      • 0 %  = entirely user-centric (profile, preferences, dialogue)  
-      • 100 % = entirely task-centric (inputs, outputs, steps) 
+      • 0 %  = entirely user-centric 
+      • 100 % = entirely task-centric 
       <helpul_context_about_anchor>
       Users often conceive of AI tools as being either more user-focused or task-focused. 
 
@@ -325,8 +325,8 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       </helpul_context_about_anchor>
 
     3. Control  
-      • 0 %  = fully autonomous; acts without human oversight  
-      • 100 % = fully governed; user approves or steers every step  
+      • 0 %  = fully autonomous;  
+      • 100 % = fully governed;  
       <helpul_context_about_control>
       Users want the ability to exert control over agent actions. While the degree of desired control varies based on the user and task, the ability to control and manage agent actions is universally essential. 
 
@@ -345,8 +345,8 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       Users can fear the “unknown” of automation, unsure of the mistakes an AI tool can make and what to look out for when completing a task. 
       </helpul_context_about_control>
     4. Humanity  
-      • 0 %  = strongly person-like; conversational, emotive persona  
-      • 100 % = strongly tool-like; utilitarian, minimal personality  
+      • 0 %  = strongly person-like; 
+      • 100 % = strongly tool-like;   
       <helpul_context_about_humanity>
       AI exhibiting “person-like” qualities enhances user comfort and fosters a sense of familiarity. Core attributes include retaining a memory of the user and past interactions, the ability to engage in a dialogue, and an inviting tone. 
 
@@ -355,8 +355,8 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
       </helpul_context_about_humanity>
 
     5. Mediation  
-      • 0 %  = hierarchical; the agent mostly “does for” the user  
-      • 100 % = collaborative; the agent “works with” the user as a peer  
+      • 0 %  = hierarchical;  
+      • 100 % = collaborative; 
       <helpul_context_about_mediation>
       Within a multi-agent experience, users conceived of two models for multi-agent mediation: 
 
