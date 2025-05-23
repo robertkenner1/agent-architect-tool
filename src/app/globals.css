@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body, html {
+  background-color: #fff;
+}
+
+/* Typography */
+.section-heading {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  color: #111827; /* text-gray-900 */
+}
+
+.subheading {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 500; /* font-medium */
+  color: #1f2937; /* text-gray-800 */
+}
+
+.body-text {
+  font-size: 0.875rem; /* text-sm */
+  color: #4b5563; /* text-gray-600 */
+}
+
+/* Card Styling */
+.card {
+  background-color: #f4f7f4;
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+  border: 1px solid #e0e6e0;
+  box-shadow: 0 1px 2px 0 rgba(16,24,40,0.03);
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #16a34a; /* bg-green-600 */
+  color: #ffffff;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #15803d; /* bg-green-700 */
+}
+
+/* Section Spacing */
+.section {
+  margin-top: 2.5rem; /* mt-10 */
+}
+
+.section-title {
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem; /* gap-6 */
+}
+
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+  background: #f4f7f4;
+}
+
+.sidebar-nav-item {
+  font-size: 0.875rem; /* text-sm */
+  color: #374151; /* text-gray-700 */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: all 0.2s;
+}
+
+.sidebar-nav-item:hover {
+  background-color: #e6efe6;
+}
+
+.sidebar-nav-item.active {
+  background-color: #d7e6d7;
+  font-weight: 600; /* font-semibold */
+  color: #166534; /* text-green-900 */
+}
+
+/* Resources Header */
+.resources-header {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+/* Card Content Spacing */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* gap-2 */
+  padding: 1.25rem; /* p-5 */
+}
+
+.card-icon {
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
