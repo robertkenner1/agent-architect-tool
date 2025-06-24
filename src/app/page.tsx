@@ -365,36 +365,6 @@ export default function AISuccessBlueprint() {
                         </div>
                       </div>
                     </div>
-                    {/* Prioritize Section Scaffolding */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Prioritize</h3>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_840#slide=id.g35b2f72a621_1_840"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Prioritize slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {["Relevance", "Capability", "Strategic Alignment", "Business Impact"].map((label) => (
-                          <div key={label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="text-sm font-light text-[#4b3a1a]">{label}</span>
-                            </div>
-                            <p className="mt-2 text-base text-black font-medium">
-                              <span className="inline-block w-full h-4 rounded mb-1 animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                              <span className="inline-block w-2/3 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
                     {/* Market Section Scaffolding */}
                     <div className="mt-10">
                       <div className="flex items-center justify-between mb-4">
@@ -534,60 +504,6 @@ export default function AISuccessBlueprint() {
                       </div>
                     </div>
                     
-                    {/* Prioritize Section */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Prioritize</h3>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_840#slide=id.g35b2f72a621_1_840"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Prioritize slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {[
-                          {
-                            label: "Relevance",
-                            level: feedbackData?.Prioritize?.Relevance?.score ?? '',
-                            rationale: feedbackData?.Prioritize?.Relevance?.rationale ?? '',
-                          },
-                          {
-                            label: "Capability",
-                            level: feedbackData?.Prioritize?.Capability?.score ?? '',
-                            rationale: feedbackData?.Prioritize?.Capability?.rationale ?? '',
-                          },
-                          {
-                            label: "Strategic Alignment",
-                            level: feedbackData?.Prioritize?.StrategicAlignment?.score ?? '',
-                            rationale: feedbackData?.Prioritize?.StrategicAlignment?.rationale ?? '',
-                          },
-                          {
-                            label: "Business Impact",
-                            level: feedbackData?.Prioritize?.BusinessImpact?.score ?? '',
-                            rationale: feedbackData?.Prioritize?.BusinessImpact?.rationale ?? '',
-                          },
-                        ].map((item, index) => (
-                          <div key={item.label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="text-sm font-light text-[#4b3a1a]">{item.label}</span>
-                              <span
-                                className={`ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c] text-white`}
-                              >
-                                {item.level}
-                              </span>
-                            </div>
-                            <p className="mt-2 text-base text-black font-medium">{item.rationale}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
                     {/* Market Section */}
                     <div className="mt-10">
                       <div className="flex items-center justify-between mb-4">
