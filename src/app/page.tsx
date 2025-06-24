@@ -6,31 +6,10 @@ import { summarizeIdea, downloadSummary } from '@/utils/summaryGenerator';
 
 // First, create a type for the feedback JSON structure
 type FeedbackData = {
-  Prioritize: {
-    Relevance: { score: string; rationale: string };
-    Capability: { score: string; rationale: string };
-    StrategicAlignment: { score: string; rationale: string };
-    BusinessImpact: { score: string; rationale: string };
-  };
   Market: {
     UserType: { label: string; rationale: string };
     BehavioralSegment: { label: string; rationale: string };
     UserAIMindset: { label: string; rationale: string };
-  };
-  Build: {
-    Scope: { score: number; rationale: string };
-    Anchor: { score: number; rationale: string };
-    Control: { score: number; rationale: string };
-    Humanity: { score: number; rationale: string };
-    Mediation: { score: number; rationale: string };
-  };
-  Evaluate: {
-    SuccessConditionSummary: {
-      TargetedUseCase: string;
-      AIReadinessAndResonance: string;
-      PerceivedQuality: string;
-      PerceivedValue: string;
-    };
   };
 };
 
@@ -422,62 +401,6 @@ export default function AISuccessBlueprint() {
                         </div>
                       </div>
                     </div>
-                    {/* Build Section Scaffolding */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Build</h3>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_984#slide=id.g35b2f72a621_1_984"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Build slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div className="space-y-4">
-                        {[
-                          { label: "Scope", left: "General", right: "Specialized" },
-                          { label: "Anchor", left: "User", right: "Task" },
-                          { label: "Control", left: "Governed", right: "Autonomous" },
-                          { label: "Humanity", left: "Person Like", right: "Tool Like" },
-                          { label: "Mediation", left: "Hierarchical", right: "Collaborative" },
-                        ].map((item) => (
-                          <div key={item.label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="text-sm font-light text-[#4b3a1a]">{item.label}</span>
-                            </div>
-                            <div className="relative flex items-center" style={{height: '32px'}}>
-                              <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div
-                                className="absolute transition-all duration-500"
-                                style={{
-                                  left: diamondsReady && feedbackData
-                                    ? `calc(${(((feedbackData?.Build?.Scope?.score ?? 1) - 1) / 4) * 100}% - 8px)`
-                                    : 'calc(50% - 8px)'
-                                }}
-                              >
-                                <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
-                              </div>
-                              <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>{item.left}</span>
-                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>{item.right}</span>
-                            </div>
-                            <div className="flex justify-between mt-1">
-                            </div>
-                            <p className="mt-2 text-base text-black font-medium">
-                              <span className="inline-block w-full h-4 rounded mb-1 animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                              <span className="inline-block w-2/3 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 )}
                 {feedbackData && maturityData && (
@@ -485,14 +408,14 @@ export default function AISuccessBlueprint() {
                     {/* Agent Maturity Classification Section */}
                     <div className="mt-10">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Agent Maturity Classification</h3>
+                        <h3 className="text-base font-medium text-black w-48">Agent Maturity</h3>
                       </div>
                       
                       {/* Static Agent Types Information */}
                       <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mb-6">
                         <div className="mb-4">
                           <p className="text-base text-black font-medium mb-4">
-                            Currently classified as <strong>{maturityData?.classification?.maturity_classification_name} ({maturityData?.classification?.maturity_classification})</strong>
+                            Maturity Levels
                           </p>
                         </div>
                         
@@ -514,6 +437,12 @@ export default function AISuccessBlueprint() {
                         </div>
                       </div>
 
+                      <div className="mb-4">
+                          <p className="text-base text-black font-medium mb-4">
+                            Your agent is currently classified as <strong>{maturityData?.classification?.maturity_classification_name} ({maturityData?.classification?.maturity_classification})</strong>
+                          </p>
+                      </div>
+
                       {/* Maturity Dimensions with Plots */}
                       <div className="space-y-4">
                         {[
@@ -521,43 +450,43 @@ export default function AISuccessBlueprint() {
                             label: "Autonomy", 
                             level: maturityData?.classification?.autonomy_level, 
                             description: maturityData?.classification?.autonomy_description,
-                            left: "Low", 
-                            right: "High" 
+                            left: "Low",
+                            right: "High"
                           },
                           { 
                             label: "Proactivity", 
                             level: maturityData?.classification?.proactivity_level, 
                             description: maturityData?.classification?.proactivity_description,
-                            left: "Reactive", 
-                            right: "Proactive" 
+                            left: "Low",
+                            right: "High"
                           },
                           { 
                             label: "Integration", 
                             level: maturityData?.classification?.integration_level, 
                             description: maturityData?.classification?.integration_description,
-                            left: "Single Tool", 
-                            right: "Multi-Tool" 
+                            left: "Low",
+                            right: "High"
                           },
                           { 
                             label: "Use Case Ownership", 
                             level: maturityData?.classification?.use_case_ownership_level, 
                             description: maturityData?.classification?.use_case_ownership_description,
-                            left: "Utility", 
-                            right: "End-to-End" 
+                            left: "Low",
+                            right: "High"
                           },
                           { 
                             label: "Orchestration", 
                             level: maturityData?.classification?.orchestration_level, 
                             description: maturityData?.classification?.orchestration_description,
-                            left: "Single Step", 
-                            right: "Multi-Step" 
+                            left: "Low",
+                            right: "High"
                           },
                           { 
                             label: "Intelligence", 
                             level: maturityData?.classification?.intelligence_level, 
                             description: maturityData?.classification?.intelligence_description,
-                            left: "Static", 
-                            right: "Adaptive" 
+                            left: "Low",
+                            right: "High"
                           },
                         ].map((item) => (
                           <div key={item.label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
@@ -640,193 +569,6 @@ export default function AISuccessBlueprint() {
                           </div>
                           <p className="mt-2 text-base text-black font-medium">{feedbackData?.Market?.UserAIMindset?.rationale ?? ''}</p>
                         </div>
-                      </div>
-                    </div>
-
-                    {/* Build Section */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Build</h3>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_984#slide=id.g35b2f72a621_1_984"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Build slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div className="space-y-4">
-                        {/* Scope */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">Scope</span>
-                          </div>
-                          <div className="relative flex items-center" style={{height: '32px'}}>
-                            <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div
-                              className="absolute transition-all duration-500"
-                              style={{
-                                left: diamondsReady && feedbackData
-                                  ? `calc(${(((feedbackData?.Build?.Scope?.score ?? 1) - 1) / 4) * 100}% - 8px)`
-                                  : 'calc(50% - 8px)'
-                              }}
-                            >
-                              <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
-                            </div>
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>General</span>
-                            <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>Specialized</span>
-                          </div>
-                          <div className="flex justify-between mt-1">
-                            {/* Removed labels here */}
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Build?.Scope?.rationale ?? ''}</p>
-                        </div>
-                        {/* Anchor */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">Anchor</span>
-                          </div>
-                          <div className="relative flex items-center" style={{height: '32px'}}>
-                            <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div
-                              className="absolute transition-all duration-500"
-                              style={{
-                                left: diamondsReady && feedbackData
-                                  ? `calc(${(((feedbackData?.Build?.Anchor?.score ?? 1) - 1) / 4) * 100}% - 8px)`
-                                  : 'calc(50% - 8px)'
-                              }}
-                            >
-                              <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
-                            </div>
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>User</span>
-                            <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>Task</span>
-                          </div>
-                          <div className="flex justify-between mt-1">
-                            {/* Removed labels here */}
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Build?.Anchor?.rationale ?? ''}</p>
-                        </div>
-                        {/* Control */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">Control</span>
-                          </div>
-                          <div className="relative flex items-center" style={{height: '32px'}}>
-                            <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div
-                              className="absolute transition-all duration-500"
-                              style={{
-                                left: diamondsReady && feedbackData
-                                  ? `calc(${(((feedbackData?.Build?.Control?.score ?? 1) - 1) / 4) * 100}% - 8px)`
-                                  : 'calc(50% - 8px)'
-                              }}
-                            >
-                              <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
-                            </div>
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>Governed</span>
-                            <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>Autonomous</span>
-                          </div>
-                          <div className="flex justify-between mt-1">
-                            {/* Removed labels here */}
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Build?.Control?.rationale ?? ''}</p>
-                        </div>
-                        {/* Humanity */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">Humanity</span>
-                          </div>
-                          <div className="relative flex items-center" style={{height: '32px'}}>
-                            <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div
-                              className="absolute transition-all duration-500"
-                              style={{
-                                left: diamondsReady && feedbackData
-                                  ? `calc(${(((feedbackData?.Build?.Humanity?.score ?? 1) - 1) / 4) * 100}% - 8px)`
-                                  : 'calc(50% - 8px)'
-                              }}
-                            >
-                              <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
-                            </div>
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>Person Like</span>
-                            <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>Tool Like</span>
-                          </div>
-                          <div className="flex justify-between mt-1">
-                            {/* Removed labels here */}
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Build?.Humanity?.rationale ?? ''}</p>
-                        </div>
-                        {/* Mediation */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">Mediation</span>
-                          </div>
-                          <div className="relative flex items-center" style={{height: '32px'}}>
-                            <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                            <div
-                              className="absolute transition-all duration-500"
-                              style={{
-                                left: diamondsReady && feedbackData
-                                  ? `calc(${(((feedbackData?.Build?.Mediation?.score ?? 1) - 1) / 4) * 100}% - 8px)`
-                                  : 'calc(50% - 8px)'
-                              }}
-                            >
-                              <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
-                            </div>
-                            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>Hierarchical</span>
-                            <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>Collaborative</span>
-                          </div>
-                          <div className="flex justify-between mt-1">
-                            {/* Removed labels here */}
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Build?.Mediation?.rationale ?? ''}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Evaluate Section */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Evaluate</h3>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_1037#slide=id.g35b2f72a621_1_1037"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Evaluate slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                        <p className="text-base text-black font-light mb-2">This section will continue to evolve. In the meantime, connect with User Research and Data Science to evaluate whether your agent prototype meets the following success criteria:</p>
-                        <ul className="list-disc pl-6 text-base text-black font-light">
-                          <li>Addresses the intended use case</li>
-                          <li>Aligns with user AI readiness</li>
-                          <li>Meets quality expectations</li>
-                          <li>Provides clear value in daily workflows</li>
-                        </ul>
                       </div>
                     </div>
                   </div>
