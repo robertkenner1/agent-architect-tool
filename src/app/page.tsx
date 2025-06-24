@@ -235,7 +235,7 @@ export default function AISuccessBlueprint() {
       <main className="max-w-7xl mx-auto px-6 py-16">
         <div className="w-full flex justify-center">
           <div className="w-full max-w-5xl">
-            <h1 className="text-3xl font-medium leading-tight text-gray-900 mb-8 mt-16">Describe your agent's purpose, users, and tasks.</h1>
+            <h1 className="text-3xl font-medium leading-tight text-gray-900 mb-8 mt-16">Describe the functionality of your agent or the types of tasks it would complete.</h1>
             <form onSubmit={handleSubmit}>
               <div>
                 <div className="mb-6">
@@ -630,6 +630,36 @@ export default function AISuccessBlueprint() {
                             <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c] text-white">{feedbackData?.Market?.UserAIMindset?.label ?? ''}</span>
                           </div>
                           <p className="mt-2 text-base text-black font-medium">{feedbackData?.Market?.UserAIMindset?.rationale ?? ''}</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Next Steps Section */}
+                    <div className="mt-10">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-base font-medium text-black w-48">Next Steps</h3>
+                      </div>
+                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
+                        <div className="text-base text-black font-medium">
+                          {maturityData?.classification?.maturity_classification === 'L0' ? (
+                            <div>
+                              <p className="mb-3">Assess LOE; Build if low</p>
+                              <p className="mb-2">Work with eng and product to determine:</p>
+                              <ul className="list-disc list-inside space-y-1 ml-4">
+                                <li>Is it technically feasible?</li>
+                                <li>Is it a large effort?</li>
+                              </ul>
+                            </div>
+                          ) : (
+                            <div>
+                              <p className="mb-3">Confirm User value + Potential Revenue with PMM & UXMR</p>
+                              <p className="mb-2">Work with eng and product to determine:</p>
+                              <ul className="list-disc list-inside space-y-1 ml-4">
+                                <li>Is it technically feasible?</li>
+                                <li>Is it a large effort?</li>
+                              </ul>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
