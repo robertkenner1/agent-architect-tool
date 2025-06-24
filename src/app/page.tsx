@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { getAgentFeedback } from '@/utils/agentPrompts';
+import { getAgentFeedback, getAgentMaturity } from '@/utils/agentPrompts';
 import { summarizeIdea, downloadSummary } from '@/utils/summaryGenerator';
 
 // First, create a type for the feedback JSON structure
@@ -34,12 +34,30 @@ type FeedbackData = {
   };
 };
 
+type MaturityData = {
+  agent: string;
+  autonomy_level: string;
+  autonomy_description: string;
+  proactivity_level: string;
+  proactivity_description: string;
+  integration_level: string;
+  integration_description: string;
+  use_case_ownership_level: string;
+  use_case_ownership_description: string;
+  orchestration_level: string;
+  orchestration_description: string;
+  context_awareness_level: string;
+  context_awareness_description: string;
+  maturity_classification: string;
+};
+
 export default function AISuccessBlueprint() {
   const [agentDescription, setAgentDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [feedbackData, setFeedbackData] = useState<FeedbackData | null>(null);
+  const [maturityData, setMaturityData] = useState<MaturityData | null>(null);
   const reportScrollRef = useRef<HTMLDivElement | null>(null);
   const [ideaSummary, setIdeaSummary] = useState<string | null>(null);
   const [summaryLoading, setSummaryLoading] = useState(false);
@@ -49,14 +67,25 @@ export default function AISuccessBlueprint() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [diamondsReady, setDiamondsReady] = useState(false);
 
+  // Helper function to convert level to icon
+  const getLevelIcon = (level: string) => {
+    switch (level.toLowerCase()) {
+      case 'low': return '❌';
+      case 'medium': return '⚠️';
+      case 'high': return '✅';
+      default: return '';
+    }
+  };
+
   // Load saved state on component mount
   React.useEffect(() => {
     const savedState = localStorage.getItem('aiSuccessBlueprintState');
     if (savedState) {
-      const { agentDescription, feedbackData, ideaSummary } = JSON.parse(savedState);
-      if (feedbackData && ideaSummary) {
+      const { agentDescription, feedbackData, maturityData, ideaSummary } = JSON.parse(savedState);
+      if (feedbackData && maturityData && ideaSummary) {
         setAgentDescription(agentDescription);
         setFeedbackData(feedbackData);
+        setMaturityData(maturityData);
         setIdeaSummary(ideaSummary);
         setSubmitted(true);
       } else {
@@ -76,11 +105,12 @@ export default function AISuccessBlueprint() {
       const stateToSave = {
         agentDescription,
         feedbackData,
+        maturityData,
         ideaSummary
       };
       localStorage.setItem('aiSuccessBlueprintState', JSON.stringify(stateToSave));
     }
-  }, [agentDescription, feedbackData, ideaSummary, submitted]);
+  }, [agentDescription, feedbackData, maturityData, ideaSummary, submitted]);
 
   // Add intersection observer for header text
   React.useEffect(() => {
@@ -117,6 +147,7 @@ export default function AISuccessBlueprint() {
     setLoading(true);
     setError('');
     setFeedbackData(null);
+    setMaturityData(null);
     setIdeaSummary(null);
     setSummaryLoading(true);
     setSummaryError(false);
@@ -145,15 +176,26 @@ export default function AISuccessBlueprint() {
     }
 
     try {
+      // Fetch feedback and maturity data sequentially
       const aiFeedback = await getAgentFeedback(agentDescription, "gpt-4.1");
+      console.log("Raw aiFeedback response:", aiFeedback);
+      
+      const aiMaturity = await getAgentMaturity(agentDescription, "gpt-4.1");
+      console.log("Raw aiMaturity response:", aiMaturity);
       
       try {
         const parsedFeedback = JSON.parse(aiFeedback);
+        const parsedMaturity = JSON.parse(aiMaturity);
         setFeedbackData(parsedFeedback);
+        setMaturityData(parsedMaturity);
       } catch (jsonError) {
+        console.error("JSON parsing error:", jsonError);
+        console.log("Failed to parse aiFeedback:", aiFeedback);
+        console.log("Failed to parse aiMaturity:", aiMaturity);
         setError('Error parsing feedback. Please try again.');
       }
     } catch (err) {
+      console.error("API call error:", err);
       setError('Failed to get AI feedback. Please try again.');
     } finally {
       setLoading(false);
@@ -229,6 +271,7 @@ export default function AISuccessBlueprint() {
                           setAgentDescription('');
                           setSubmitted(false);
                           setFeedbackData(null);
+                          setMaturityData(null);
                           setIdeaSummary(null);
                           localStorage.removeItem('aiSuccessBlueprintState');
                           if (textareaRef.current) {
@@ -301,8 +344,27 @@ export default function AISuccessBlueprint() {
                   </button>
                 )}
                 {error && <p className="text-red-600">{error}</p>}
-                {loading && !feedbackData && (
+                {loading && !feedbackData && !maturityData && (
                   <div className="space-y-16 animate-fade-in">
+                    {/* Agent Maturity Classification Section Scaffolding */}
+                    <div className="mt-10">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-base font-medium text-black w-48">Agent Maturity Classification</h3>
+                      </div>
+                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
+                        <div className="mb-4">
+                          <span className="inline-block w-40 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {["Autonomy", "Proactivity", "Integration", "Use Case Ownership", "Orchestration", "Context Awareness"].map((label) => (
+                            <div key={label} className="flex items-center gap-3">
+                              <span className="text-sm font-light text-[#4b3a1a]">{label}</span>
+                              <span className="inline-block w-5 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                     {/* Prioritize Section Scaffolding */}
                     <div className="mt-10">
                       <div className="flex items-center justify-between mb-4">
@@ -440,8 +502,38 @@ export default function AISuccessBlueprint() {
                     </div>
                   </div>
                 )}
-                {feedbackData && (
+                {feedbackData && maturityData && (
                   <div className="space-y-16">
+                    {/* Agent Maturity Classification Section */}
+                    <div className="mt-10">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-base font-medium text-black w-48">Agent Maturity Classification</h3>
+                      </div>
+                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
+                        <div className="mb-4">
+                          <p className="text-base text-black font-medium">
+                            Currently at <strong>{maturityData.maturity_classification}</strong> level.
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {[
+                            { label: "Autonomy", level: maturityData.autonomy_level, description: maturityData.autonomy_description },
+                            { label: "Proactivity", level: maturityData.proactivity_level, description: maturityData.proactivity_description },
+                            { label: "Integration", level: maturityData.integration_level, description: maturityData.integration_description },
+                            { label: "Use Case Ownership", level: maturityData.use_case_ownership_level, description: maturityData.use_case_ownership_description },
+                            { label: "Orchestration", level: maturityData.orchestration_level, description: maturityData.orchestration_description },
+                            { label: "Context Awareness", level: maturityData.context_awareness_level, description: maturityData.context_awareness_description },
+                          ].map((item) => (
+                            <div key={item.label} className="flex items-center gap-3 mb-2">
+                              <span className="text-sm font-light text-[#4b3a1a] min-w-[120px]">{item.label}</span>
+                              <span className="text-lg">{getLevelIcon(item.level)}</span>
+                              <span className="text-sm text-[#4b3a1a] flex-1">{item.description}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    
                     {/* Prioritize Section */}
                     <div className="mt-10">
                       <div className="flex items-center justify-between mb-4">

@@ -466,14 +466,10 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   }
     `;
 
-  const userPrompt = `#### User
-    Here is the agent idea:
-    ${description}`;
-
-  return [
-    { role: 'system', content: systemPrompt },
-    { role: 'user', content: userPrompt },
-  ];
+    return [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: `Here is my agent idea that I would like to validate: ${description}` }
+    ];
 }
 
 // Agent feedback prompt creation
