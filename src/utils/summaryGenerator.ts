@@ -75,3 +75,29 @@ export function downloadSummary(summary: string) {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 } 
+
+// Summarize a single agent idea in 8-12 words, clear and specific, for a report heading
+export async function summarizeIdea(idea: string): Promise<string> {
+  const systemPrompt = `You are an expert at writing concise, clear, and specific report headings. Given an AI agent idea, summarize it in 8-12 words as a report heading. Do not include generic words like 'report' or 'summary'.`;
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: idea }
+  ];
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ messages }),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to generate summary');
+    }
+    const data = await response.json();
+    return data.message;
+  } catch (error) {
+    console.error('Error generating summary:', error);
+    throw error;
+  }
+} 
