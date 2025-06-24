@@ -35,20 +35,24 @@ type FeedbackData = {
 };
 
 type MaturityData = {
-  agent: string;
-  autonomy_level: string;
-  autonomy_description: string;
-  proactivity_level: string;
-  proactivity_description: string;
-  integration_level: string;
-  integration_description: string;
-  use_case_ownership_level: string;
-  use_case_ownership_description: string;
-  orchestration_level: string;
-  orchestration_description: string;
-  context_awareness_level: string;
-  context_awareness_description: string;
-  maturity_classification: string;
+  classification: {
+    agent: string;
+    autonomy_level: string;
+    autonomy_description: string;
+    proactivity_level: string;
+    proactivity_description: string;
+    integration_level: string;
+    integration_description: string;
+    use_case_ownership_level: string;
+    use_case_ownership_description: string;
+    orchestration_level: string;
+    orchestration_description: string;
+    intelligence_level: string;
+    intelligence_description: string;
+    maturity_classification: string;
+    maturity_classification_name: string;
+  };
+  suggestions: string;
 };
 
 export default function AISuccessBlueprint() {
@@ -67,13 +71,17 @@ export default function AISuccessBlueprint() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [diamondsReady, setDiamondsReady] = useState(false);
 
-  // Helper function to convert level to icon
-  const getLevelIcon = (level: string) => {
+  // Helper function to convert level to numeric score for plots
+  const getLevelScore = (level: string | undefined): number => {
+    if (!level) return 3; // default to medium if level is undefined
+    
     switch (level.toLowerCase()) {
-      case 'low': return '❌';
-      case 'medium': return '⚠️';
-      case 'high': return '✅';
-      default: return '';
+      case 'low': return 1;
+      case 'medium-low': return 2;
+      case 'medium': return 3;
+      case 'medium-high': return 4;
+      case 'high': return 5;
+      default: return 3; // default to medium
     }
   };
 
@@ -479,29 +487,116 @@ export default function AISuccessBlueprint() {
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-base font-medium text-black w-48">Agent Maturity Classification</h3>
                       </div>
-                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
+                      
+                      {/* Static Agent Types Information */}
+                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mb-6">
                         <div className="mb-4">
-                          <p className="text-base text-black font-medium">
-                            Currently at <strong>{maturityData.maturity_classification}</strong> level.
+                          <p className="text-base text-black font-medium mb-4">
+                            Currently classified as <strong>{maturityData?.classification?.maturity_classification_name} ({maturityData?.classification?.maturity_classification})</strong>
                           </p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {[
-                            { label: "Autonomy", level: maturityData.autonomy_level, description: maturityData.autonomy_description },
-                            { label: "Proactivity", level: maturityData.proactivity_level, description: maturityData.proactivity_description },
-                            { label: "Integration", level: maturityData.integration_level, description: maturityData.integration_description },
-                            { label: "Use Case Ownership", level: maturityData.use_case_ownership_level, description: maturityData.use_case_ownership_description },
-                            { label: "Orchestration", level: maturityData.orchestration_level, description: maturityData.orchestration_description },
-                            { label: "Context Awareness", level: maturityData.context_awareness_level, description: maturityData.context_awareness_description },
-                          ].map((item) => (
-                            <div key={item.label} className="flex items-center gap-3 mb-2">
-                              <span className="text-sm font-light text-[#4b3a1a] min-w-[120px]">{item.label}</span>
-                              <span className="text-lg">{getLevelIcon(item.level)}</span>
-                              <span className="text-sm text-[#4b3a1a] flex-1">{item.description}</span>
-                            </div>
-                          ))}
+                        
+                        <div className="space-y-4 text-sm text-[#4b3a1a]">
+                          <div className="border-l-4 border-[#b97a3c] pl-4">
+                            <p className="font-semibold mb-1">L0 - Connector Agents</p>
+                            <p>Agents that passively push and pull data from external sources. Simple data ingress/egress with no decision-making or end-to-end use case ownership.</p>
+                          </div>
+                          
+                          <div className="border-l-4 border-[#b97a3c] pl-4">
+                            <p className="font-semibold mb-1">L1 - Task Agents</p>
+                            <p>Agents built to solve a defined use case, often across multiple tools. They may call other agents or use internal "skills" and have an opinion about their role.</p>
+                          </div>
+                          
+                          <div className="border-l-4 border-[#b97a3c] pl-4">
+                            <p className="font-semibold mb-1">L2 - Collaborative Agents</p>
+                            <p>Strategic agents that coordinate end-to-end workflows, invoking other agents and tools to achieve outcomes. Proactive by design and can string together multiple steps.</p>
+                          </div>
                         </div>
                       </div>
+
+                      {/* Maturity Dimensions with Plots */}
+                      <div className="space-y-4">
+                        {[
+                          { 
+                            label: "Autonomy", 
+                            level: maturityData?.classification?.autonomy_level, 
+                            description: maturityData?.classification?.autonomy_description,
+                            left: "Low", 
+                            right: "High" 
+                          },
+                          { 
+                            label: "Proactivity", 
+                            level: maturityData?.classification?.proactivity_level, 
+                            description: maturityData?.classification?.proactivity_description,
+                            left: "Reactive", 
+                            right: "Proactive" 
+                          },
+                          { 
+                            label: "Integration", 
+                            level: maturityData?.classification?.integration_level, 
+                            description: maturityData?.classification?.integration_description,
+                            left: "Single Tool", 
+                            right: "Multi-Tool" 
+                          },
+                          { 
+                            label: "Use Case Ownership", 
+                            level: maturityData?.classification?.use_case_ownership_level, 
+                            description: maturityData?.classification?.use_case_ownership_description,
+                            left: "Utility", 
+                            right: "End-to-End" 
+                          },
+                          { 
+                            label: "Orchestration", 
+                            level: maturityData?.classification?.orchestration_level, 
+                            description: maturityData?.classification?.orchestration_description,
+                            left: "Single Step", 
+                            right: "Multi-Step" 
+                          },
+                          { 
+                            label: "Intelligence", 
+                            level: maturityData?.classification?.intelligence_level, 
+                            description: maturityData?.classification?.intelligence_description,
+                            left: "Static", 
+                            right: "Adaptive" 
+                          },
+                        ].map((item) => (
+                          <div key={item.label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
+                            <div className="flex items-center gap-3 mb-2">
+                              <span className="text-sm font-light text-[#4b3a1a]">{item.label}</span>
+                              <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c] text-white">{item.level}</span>
+                            </div>
+                            <div className="relative flex items-center" style={{height: '32px'}}>
+                              <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-1/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-3/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div
+                                className="absolute transition-all duration-500"
+                                style={{
+                                  left: diamondsReady && maturityData
+                                    ? `calc(${(((getLevelScore(item.level)) - 1) / 4) * 100}% - 8px)`
+                                    : 'calc(50% - 8px)'
+                                }}
+                              >
+                                <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
+                              </div>
+                              <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>{item.left}</span>
+                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>{item.right}</span>
+                            </div>
+                            <p className="mt-2 text-base text-black font-medium">{item.description}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Suggestions Section */}
+                      {maturityData?.suggestions && (
+                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mt-6">
+                          <h4 className="text-sm font-medium text-[#4b3a1a] mb-3">Improvement Suggestions</h4>
+                          <p className="text-base text-black font-medium whitespace-pre-line">{maturityData.suggestions}</p>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Market Section */}

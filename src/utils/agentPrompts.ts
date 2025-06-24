@@ -10,6 +10,22 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     You are an AI Product Framework Assistant.  
     Your job is to evaluate proposed AI or agent ideas according to the framework described below.
     You use maturity levels (L0–L2) to categorize agents based on their core traits and functional complexity, showing how agents evolve - from simple connectors to autonomous collaborators.
+    Here are the traits and their definitions:
+    1. Proactivity	
+    Initiation of action. Captures how and when the agent initiates actions—whether user-prompted, event-triggered, or proactive based on predictions or inferred needs. Reflects both the activation mode (push, pull, hybrid) and level of autonomous initiative.	Mediation + Control
+
+    2. Autonomy	
+    Decision-making authority. The agent’s ability to make independent decisions and operate without step-by-step user instructions, including choosing actions, tools, or paths to complete a goal.	Control
+
+    3. Intelligence	
+    Contextual understanding and adaptability. The agent’s ability to understand and apply context (user, content, environment) and improve over time through feedback, usage patterns, or memory. Reflects learning, personalization, and contextual responsiveness.	Anchor (some elements of Humanity + Scope)
+
+    4. Orchestration	
+    Multi-step scope, Multi-tool coordination. The agent’s capability to own and manage a specific scope (JTBD) or complex workflows by coordinating multiple steps, tools, or agents (including humans) to achieve shared goals.	Scope 
+
+    5. Integration	
+    Tool connection. The agent’s capability to connect with and operate across multiple external or internal applications, tools, or APIs to complete workflows.	
+    
     Description of the maturity levels:
     
     L0 - Connector Agents
@@ -102,8 +118,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "No job ownership, just sync",
     "orchestration_level": "low",
     "orchestration_description": "No task orchestration",
-    "context_awareness_level": "low",
-    "context_awareness_description": "No adaptation or learning",
+    "intelligence_level": "low",
+    "intelligence_description": "No adaptation or learning",
     "maturity_classification": "L0"
   },
   {
@@ -118,8 +134,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Just syncs/searches data",
     "orchestration_level": "low",
     "orchestration_description": "No task delegation",
-    "context_awareness_level": "low",
-    "context_awareness_description": "Pure metadata, no learning",
+    "intelligence_level": "low",
+    "intelligence_description": "Pure metadata, no learning",
     "maturity_classification": "L0"
   },
   {
@@ -134,8 +150,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "No JTBD",
     "orchestration_level": "low",
     "orchestration_description": "No orchestration",
-    "context_awareness_level": "low",
-    "context_awareness_description": "Purely atomic function",
+    "intelligence_level": "low",
+    "intelligence_description": "Purely atomic function",
     "maturity_classification": "L0"
   },
   {
@@ -150,8 +166,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Sync-only tool",
     "orchestration_level": "low",
     "orchestration_description": "No chaining",
-    "context_awareness_level": "low",
-    "context_awareness_description": "No understanding of design intent",
+    "intelligence_level": "low",
+    "intelligence_description": "No understanding of design intent",
     "maturity_classification": "L0"
   },
   {
@@ -166,8 +182,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Utility only",
     "orchestration_level": "low",
     "orchestration_description": "Cannot delegate/plan goals",
-    "context_awareness_level": "low",
-    "context_awareness_description": "No learning of meeting type or goals",
+    "intelligence_level": "low",
+    "intelligence_description": "No learning of meeting type or goals",
     "maturity_classification": "L0"
   },
   {
@@ -182,8 +198,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "No JTBD",
     "orchestration_level": "low",
     "orchestration_description": "Not task-aware",
-    "context_awareness_level": "low",
-    "context_awareness_description": "Does not retain user preference",
+    "intelligence_level": "low",
+    "intelligence_description": "Does not retain user preference",
     "maturity_classification": "L0"
   },
   {
@@ -198,8 +214,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Event fetch only",
     "orchestration_level": "low",
     "orchestration_description": "No task coordination",
-    "context_awareness_level": "low",
-    "context_awareness_description": "No event memory",
+    "intelligence_level": "low",
+    "intelligence_description": "No event memory",
     "maturity_classification": "L0"
   },
   {
@@ -214,8 +230,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Contact utility only",
     "orchestration_level": "low",
     "orchestration_description": "Standalone function",
-    "context_awareness_level": "low",
-    "context_awareness_description": "No context learning",
+    "intelligence_level": "low",
+    "intelligence_description": "No context learning",
     "maturity_classification": "L0"
   },
   {
@@ -230,15 +246,15 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Specific JTBD: sales email response mgmt",
     "orchestration_level": "medium",
     "orchestration_description": "May call out to CRM/task agents",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Understands thread/user state; may tailor tone",
+    "intelligence_level": "medium",
+    "intelligence_description": "Understands thread/user state; may tailor tone",
     "maturity_classification": "L1"
   },
   {
     "agent": "Interview Feedback Agent",
     "autonomy_level": "medium",
     "autonomy_description": "Processes inputs, gives structured output",
-    "proactivity_level": "medium",
+    "proactivity_level": "medium-low",
     "proactivity_description": "Fully triggered by user",
     "integration_level": "high",
     "integration_description": "Access recordings and notes; may integrate with ATS/interview tools",
@@ -246,8 +262,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Focused use case: structured interview feedback",
     "orchestration_level": "low",
     "orchestration_description": "No orchestration",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Uses interview context; understands role and interview dynamics",
+    "intelligence_level": "medium",
+    "intelligence_description": "Uses interview context; understands role and interview dynamics",
     "maturity_classification": "L1"
   },
   {
@@ -262,8 +278,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "JTBD: extract key points",
     "orchestration_level": "low",
     "orchestration_description": "Doesn’t invoke others",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Adapts summary to content",
+    "intelligence_level": "medium-low",
+    "intelligence_description": "Adapts summary to content",
     "maturity_classification": "L1"
   },
   {
@@ -278,8 +294,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Focused report-building use case",
     "orchestration_level": "medium",
     "orchestration_description": "Can invoke sub-tasks like summarization",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Adapts to report audience/type",
+    "intelligence_level": "medium",
+    "intelligence_description": "Adapts to report audience/type",
     "maturity_classification": "L1"
   },
   {
@@ -294,8 +310,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Produces high-level briefs",
     "orchestration_level": "low",
     "orchestration_description": "Standalone operation",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Aware of audience level/context",
+    "intelligence_level": "medium",
+    "intelligence_description": "Aware of audience level/context",
     "maturity_classification": "L1"
   },
   {
@@ -310,8 +326,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Simplifies complex content",
     "orchestration_level": "low",
     "orchestration_description": "No chaining",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Recognizes and simplifies jargon/context",
+    "intelligence_level": "medium",
+    "intelligence_description": "Recognizes and simplifies jargon/context",
     "maturity_classification": "L1"
   },
   {
@@ -326,8 +342,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Creates decks and slides",
     "orchestration_level": "medium",
     "orchestration_description": "Can chain content agents",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Adjusts design and style to audience and goals",
+    "intelligence_level": "medium",
+    "intelligence_description": "Adjusts design and style to audience and goals",
     "maturity_classification": "L1"
   },
   {
@@ -342,8 +358,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Helps create a tailored resume",
     "orchestration_level": "low",
     "orchestration_description": "No task coordination",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Reads context-background/goals/job type",
+    "intelligence_level": "medium",
+    "intelligence_description": "Reads context-background/goals/job type",
     "maturity_classification": "L1"
   },
   {
@@ -358,8 +374,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Helps students study by converting notes to flashcards",
     "orchestration_level": "low",
     "orchestration_description": "No task chaining or workflow awareness",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Understands subject structure and simplifies into card format",
+    "intelligence_level": "medium-high",
+    "intelligence_description": "Understands subject structure and simplifies into card format",
     "maturity_classification": "L1"
   },
   {
@@ -374,8 +390,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Focused research doc support",
     "orchestration_level": "medium",
     "orchestration_description": "Loosely coordinates outline stages",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Adapts to academic style/tone/context",
+    "intelligence_level": "medium-low",
+    "intelligence_description": "Adapts to academic style/tone/context",
     "maturity_classification": "L1"
   },
   {
@@ -390,8 +406,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "One job: summarize",
     "orchestration_level": "low",
     "orchestration_description": "No chaining",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Adjusts tone/length based on input",
+    "intelligence_level": "medium-low",
+    "intelligence_description": "Adjusts tone/length based on input",
     "maturity_classification": "L1"
   },
   {
@@ -406,8 +422,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "Owns full workflow (before, during, after)",
     "orchestration_level": "high",
     "orchestration_description": "Coordinates tasks, steps, follow-ups",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Adjusts to team, user, meeting context",
+    "intelligence_level": "medium-high",
+    "intelligence_description": "Adjusts to team, user, meeting context",
     "maturity_classification": "L2"
   },
   {
@@ -422,8 +438,8 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "End-to-end assignment coaching",
     "orchestration_level": "high",
     "orchestration_description": "Coordinates learning feedback loop",
-    "context_awareness_level": "medium",
-    "context_awareness_description": "Adapts to student progress/history",
+    "intelligence_level": "medium-high",
+    "intelligence_description": "Adapts to student progress/history",
     "maturity_classification": "L2"
   },
   {
@@ -438,32 +454,37 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_description": "End-to-end ownership of thesis",
     "orchestration_level": "high",
     "orchestration_description": "Delegates to other tools/agents",
-    "context_awareness_level": "high",
-    "context_awareness_description": "Deep contextual continuity; retains long-term academic goals",
+    "intelligence_level": "high",
+    "intelligence_description": "Deep contextual continuity; retains long-term academic goals",
     "maturity_classification": "L2"
   },
 
 
   **Your task is to classify the agent into one of the maturity levels based on the description provided.**
+  Then, if the agent maturity level is L0 or L1, make suggestions for how to improve the agent's maturity level.
+  Start the suggestions with: "Your idea is currently classified as a <Connector Agent (L0) |Task Agent (L1)|Collaborative Agent (L2)>. Here are some suggestions for how to improve the agent's maturity level: ..."
 
   Output the maturity classification in the following JSON format:
 
-  {
+  {"classification": {
     "agent": "<agent_name>",
-    "autonomy_level": "<high|medium|low>",
+    "autonomy_level": "<high|medium-high|medium|medium-low|low>",
     "autonomy_description": "<description>",
-    "proactivity_level": "<high|medium|low>",
+    "proactivity_level": "<high|medium-high|medium|medium-low|low>",
     "proactivity_description": "<description>",
-    "integration_level": "<high|medium|low>",
+    "integration_level": "<high|medium-high|medium|medium-low|low>",
     "integration_description": "<description>",
-    "use_case_ownership_level": "<high|medium|low>",
+    "use_case_ownership_level": "<high|medium-high|medium|medium-low|low>",
     "use_case_ownership_description": "<description>",
-    "orchestration_level": "<high|medium|low>",
+    "orchestration_level": "<high|medium-high|medium|medium-low|low>",
     "orchestration_description": "<description>",
-    "context_awareness_level": "<high|medium|low>",
-    "context_awareness_description": "<description>",
+    "intelligence_level": "<high|medium-high|medium|medium-low|low>",
+    "intelligence_description": "<description>",
     "maturity_classification": "<L0|L1|L2>",
-  }
+    "maturity_classification_name": "<Connector Agent|Task Agent|Collaborative Agent>"
+  },
+  "suggestions": "<suggestions for how to improve the agent's maturity level>"
+}
     `;
 
     return [
