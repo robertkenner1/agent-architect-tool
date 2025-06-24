@@ -336,19 +336,81 @@ export default function AISuccessBlueprint() {
                     {/* Agent Maturity Classification Section Scaffolding */}
                     <div className="mt-10">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Agent Maturity Classification</h3>
+                        <h3 className="text-base font-medium text-black w-48">Agent Maturity</h3>
                       </div>
-                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
+                      
+                      {/* Static Agent Types Information - can show immediately */}
+                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mb-6">
                         <div className="mb-4">
-                          <span className="inline-block w-40 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                          <p className="text-base text-black font-medium mb-4">
+                            Maturity Levels
+                          </p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {["Autonomy", "Proactivity", "Integration", "Use Case Ownership", "Orchestration", "Context Awareness"].map((label) => (
-                            <div key={label} className="flex items-center gap-3">
+                        
+                        <div className="space-y-4 text-sm text-[#4b3a1a]">
+                          <div className="border-l-4 border-[#b97a3c] pl-4">
+                            <p className="font-semibold mb-1">L0 - Connector Agents</p>
+                            <p>Agents that passively push and pull data from external sources. Simple data ingress/egress with no decision-making or end-to-end use case ownership.</p>
+                          </div>
+                          
+                          <div className="border-l-4 border-[#b97a3c] pl-4">
+                            <p className="font-semibold mb-1">L1 - Task Agents</p>
+                            <p>Agents built to solve a defined use case, often across multiple tools. They may call other agents or use internal "skills" and have an opinion about their role.</p>
+                          </div>
+                          
+                          <div className="border-l-4 border-[#b97a3c] pl-4">
+                            <p className="font-semibold mb-1">L2 - Collaborative Agents</p>
+                            <p>Strategic agents that coordinate end-to-end workflows, invoking other agents and tools to achieve outcomes. Proactive by design and can string together multiple steps.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Classification placeholder */}
+                      <div className="mb-4">
+                        <p className="text-base text-black font-medium mb-4">
+                          Your agent is currently classified as{' '}
+                          <span className="inline-block w-32 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                        </p>
+                      </div>
+
+                      {/* Maturity Dimensions Scaffolding */}
+                      <div className="space-y-4">
+                        {["Autonomy", "Proactivity", "Integration", "Use Case Ownership", "Orchestration", "Intelligence"].map((label) => (
+                          <div key={label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
+                            <div className="flex items-center gap-3 mb-2">
                               <span className="text-sm font-light text-[#4b3a1a]">{label}</span>
-                              <span className="inline-block w-5 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                              <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c22] text-transparent">
+                                <span className="inline-block w-8 h-3 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                              </span>
                             </div>
-                          ))}
+                            <div className="relative flex items-center" style={{height: '32px'}}>
+                              <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-1/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-3/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
+                              <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+                                <div className="w-4 h-4 bg-[#b97a3c22] rotate-45 animate-pulse" style={{borderRadius: '4px'}}></div>
+                              </div>
+                              <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>Low</span>
+                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>High</span>
+                            </div>
+                            <p className="mt-2 text-base text-black font-medium">
+                              <span className="inline-block w-full h-4 rounded mb-1 animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                              <span className="inline-block w-3/4 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Suggestions Section Placeholder */}
+                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mt-6">
+                        <h4 className="text-sm font-medium text-[#4b3a1a] mb-3">Improvement Suggestions</h4>
+                        <div className="space-y-2">
+                          <span className="inline-block w-full h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                          <span className="inline-block w-5/6 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                          <span className="inline-block w-4/5 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
                         </div>
                       </div>
                     </div>
