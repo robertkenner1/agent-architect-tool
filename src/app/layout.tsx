@@ -9,8 +9,8 @@ const lora = Lora({
 });
 
 export const metadata = {
-  title: 'AI Success Blueprint',
-  description: 'AI Success Blueprint App',
+  title: 'Agent Architect Tool',
+  description: 'Agent Architect Tool - Design and evaluate AI agents',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

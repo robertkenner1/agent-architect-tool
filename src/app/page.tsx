@@ -1,8 +1,12 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { getAgentFeedback, getAgentMaturity } from '@/utils/agentPrompts';
 import { summarizeIdea, downloadSummary } from '@/utils/summaryGenerator';
+
+import { RichTextInput } from '@/components/RichTextInput';
+import { AttributeVisualization } from '@/components/AttributeVisualization';
+import { NextStepsSection } from '@/components/NextStepsSection';
 
 // First, create a type for the feedback JSON structure
 type FeedbackData = {
@@ -45,22 +49,61 @@ export default function AISuccessBlueprint() {
   const [ideaSummary, setIdeaSummary] = useState<string | null>(null);
   const [summaryLoading, setSummaryLoading] = useState(false);
   const [summaryError, setSummaryError] = useState(false);
-  const [headerText, setHeaderText] = useState('From Novelty to Necessity: The Blueprint for Effective Agents');
+  const [headerText, setHeaderText] = useState('Agent Architect Tool');
   const [isReportHeader, setIsReportHeader] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [diamondsReady, setDiamondsReady] = useState(false);
+  const [showDefinitions, setShowDefinitions] = useState(false);
+  const [showMaturityDefinitions, setShowMaturityDefinitions] = useState(false);
+  const [currentLoadingStep, setCurrentLoadingStep] = useState(0);
+  
+  const loadingSteps = [
+    { text: "Parsing high-confidence sources", highlight: "high-confidence" },
+    { text: "Analyzing agent traits and maturity", highlight: "agent traits" },
+    { text: "Mapping to relevant market segments", highlight: "market segments" },
+    { text: "Evaluating UX and integration patterns", highlight: "UX and integration" },
+    { text: "Generating tailored recommendations", highlight: "tailored recommendations" }
+  ];
+
+  // Loading step animation effect
+  useEffect(() => {
+    if (loading && !feedbackData && !maturityData) {
+    const interval = setInterval(() => {
+        setCurrentLoadingStep((prev) => (prev + 1) % loadingSteps.length);
+      }, 2500);
+    return () => clearInterval(interval);
+    }
+  }, [loading, feedbackData, maturityData]);
 
   // Helper function to convert level to numeric score for plots
   const getLevelScore = (level: string | undefined): number => {
     if (!level) return 3; // default to medium if level is undefined
     
     switch (level.toLowerCase()) {
+      case 'l0':
       case 'low': return 1;
+      case 'l1':
       case 'medium-low': return 2;
       case 'medium': return 3;
+      case 'l2':
       case 'medium-high': return 4;
       case 'high': return 5;
       default: return 3; // default to medium
+    }
+  };
+
+  // Helper function to get trait level color
+  const getTraitLevelColor = (level: string | undefined): string => {
+    if (!level) return 'bg-gray-400';
+    
+    switch (level.toLowerCase()) {
+      case 'l0':
+      case 'low': return 'bg-red-400';
+      case 'l1':
+      case 'medium': return 'bg-yellow-400';
+      case 'l2':
+      case 'high': return 'bg-green-400';
+      default: return 'bg-gray-400';
     }
   };
 
@@ -109,7 +152,7 @@ export default function AISuccessBlueprint() {
           setHeaderText(ideaSummary ? `Report: ${ideaSummary}` : 'Agent Report');
           setIsReportHeader(true);
         } else {
-          setHeaderText('From Novelty to Necessity: The Blueprint for Effective Agents');
+          setHeaderText('Agent Architect Tool');
           setIsReportHeader(false);
         }
       },
@@ -127,6 +170,8 @@ export default function AISuccessBlueprint() {
       setTimeout(() => setDiamondsReady(true), 50);
     }
   }, [feedbackData]);
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -173,6 +218,8 @@ export default function AISuccessBlueprint() {
       try {
         const parsedFeedback = JSON.parse(aiFeedback);
         const parsedMaturity = JSON.parse(aiMaturity);
+        console.log("Parsed maturity data:", parsedMaturity);
+        console.log("Classification object:", parsedMaturity.classification);
         setFeedbackData(parsedFeedback);
         setMaturityData(parsedMaturity);
       } catch (jsonError) {
@@ -192,7 +239,7 @@ export default function AISuccessBlueprint() {
   return (
     <div className="min-h-screen font-lora" style={{ background: '#f8f4e7', fontFamily: 'Lora, serif' }}>
       <head>
-        <title>From Novelty to Necessity: The Blueprint for Effective Agents</title>
+        <title>Agent Architect Tool</title>
       </head>
       <header className="w-full flex justify-between items-center px-8 py-4 mb-2 gap-6 sticky top-0 z-50 bg-[#f8f4e7] border-b border-[#e6dcc7]">
         <div className="flex items-center gap-4">
@@ -215,6 +262,14 @@ export default function AISuccessBlueprint() {
         </div>
         <div className="flex items-center gap-6">
           <a
+            href="https://coda.io/d/Agents-PMM-Workstream_dX5sirzk5jp/Agent-Framework_suamSShJ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#b97a3c] text-base font-semibold hover:underline transition"
+          >
+            Framework
+          </a>
+          <a
             href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35c282ad398_0_513#slide=id.g35c282ad398_0_513"
             target="_blank"
             rel="noopener noreferrer"
@@ -235,20 +290,16 @@ export default function AISuccessBlueprint() {
       <main className="max-w-7xl mx-auto px-6 py-16">
         <div className="w-full flex justify-center">
           <div className="w-full max-w-5xl">
-            <h1 className="text-3xl font-medium leading-tight text-gray-900 mb-8 mt-16">Describe the functionality of your agent or the types of tasks it would complete.</h1>
+            <h1 className="text-2xl font-bold text-black mb-8 mt-16 text-center" style={{ letterSpacing: '-0.02em' }}>Describe the functionality of your agent or what types of tasks it would do.</h1>
             <form onSubmit={handleSubmit}>
               <div>
                 <div className="mb-6">
                   <div className="relative">
-                    <textarea
-                      ref={textareaRef}
-                      id="agentDescription"
-                      rows={4}
-                      className="w-full h-[36rem] text-base rounded-2xl bg-[#f8f4e7] border border-[#e6dcc7] p-6 pr-12 pb-10 placeholder-[#b97a3c66] focus:outline-none focus:ring-2 focus:ring-[#e6dcc7] resize-none"
-                      placeholder="E.g. Expert Panel Agent analyzes the user's document through the prism of expert publications and experts, and provides high-level, impactful advice, voiced in the Expert's very distinct manner. Users can chat with Expert to get further help, including rewrites, more info on the topic or idea, or more comments to their doc."
+                    <RichTextInput
                       value={agentDescription}
-                      onChange={(e) => setAgentDescription(e.target.value)}
-                      required
+                      onChange={setAgentDescription}
+                      onSubmit={() => handleSubmit(new Event('submit') as any)}
+                      disabled={loading}
                     />
                     {agentDescription.trim() && (
                       <button
@@ -298,9 +349,9 @@ export default function AISuccessBlueprint() {
             </form>
             
             {submitted && (
-              <div className="mt-12 border border-[#e6dcc7] rounded-2xl p-10 bg-[#f8f4e7]">
+                              <div className="mt-12 bg-[#f8f4e7]">
                 <div ref={reportScrollRef} />
-                <h2 className="text-2xl font-medium text-gray-900 mb-4">
+                <h1 className="text-2xl font-bold text-black mb-8">
                   {summaryLoading ? (
                     <span className="inline-block w-40 h-6 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
                   ) : ideaSummary ? (
@@ -312,357 +363,350 @@ export default function AISuccessBlueprint() {
                   ) : (
                     'Agent Report'
                   )}
-                </h2>
-                {summaryLoading ? (
-                  <div className="h-6 mb-4"></div>
-                ) : feedbackData && (
-                  <button
-                    className="text-[#b97a3c] hover:underline transition flex items-center gap-1 mb-4"
-                    onClick={() => {
-                      const text = JSON.stringify(feedbackData, null, 2);
-                      downloadSummary(text);
-                    }}
-                    title="Download Report"
-                  >
-                    <span className="text-sm font-medium">Download Report</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                    </svg>
-                  </button>
-                )}
+                </h1>
+
                 {error && <p className="text-red-600">{error}</p>}
                 {loading && !feedbackData && !maturityData && (
-                  <div className="space-y-16 animate-fade-in">
-                    {/* Agent Maturity Classification Section Scaffolding */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Agent Maturity</h3>
-                      </div>
-                      
-                      {/* Static Agent Types Information - can show immediately */}
-                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mb-6">
-                        <div className="mb-4">
-                          <p className="text-base text-black font-medium mb-4">
-                            Maturity Levels
-                          </p>
-                        </div>
-                        
-                        <div className="space-y-4 text-sm text-[#4b3a1a]">
-                          <div className="border-l-4 border-[#b97a3c] pl-4">
-                            <p className="font-semibold mb-1">L0 - Connector Agents</p>
-                            <p>Agents that passively push and pull data from external sources. Simple data ingress/egress with no decision-making or end-to-end use case ownership.</p>
-                          </div>
-                          
-                          <div className="border-l-4 border-[#b97a3c] pl-4">
-                            <p className="font-semibold mb-1">L1 - Task Agents</p>
-                            <p>Agents built to solve a defined use case, often across multiple tools. They may call other agents or use internal "skills" and have an opinion about their role.</p>
-                          </div>
-                          
-                          <div className="border-l-4 border-[#b97a3c] pl-4">
-                            <p className="font-semibold mb-1">L2 - Collaborative Agents</p>
-                            <p>Strategic agents that coordinate end-to-end workflows, invoking other agents and tools to achieve outcomes. Proactive by design and can string together multiple steps.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Classification placeholder */}
-                      <div className="mb-4">
-                        <p className="text-base text-black font-medium mb-4">
-                          Your agent is currently classified as{' '}
-                          <span className="inline-block w-32 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                        </p>
-                      </div>
-
-                      {/* Maturity Dimensions Scaffolding */}
-                      <div className="space-y-4">
-                        {["Autonomy", "Proactivity", "Integration", "Use Case Ownership", "Orchestration", "Intelligence"].map((label) => (
-                          <div key={label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="text-sm font-light text-[#4b3a1a]">{label}</span>
-                              <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c22] text-transparent">
-                                <span className="inline-block w-8 h-3 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
+                  <div className="mt-10 flex items-center justify-center min-h-[200px]">
+                    <div className="text-base font-normal text-gray-500 transition-all duration-500 ease-in-out">
+                      <div className="loading-step shimmer-text">
+                        {loadingSteps[currentLoadingStep].text.split(loadingSteps[currentLoadingStep].highlight).map((part, partIndex, parts) => (
+                          <span key={partIndex}>
+                            {part}
+                            {partIndex < parts.length - 1 && (
+                              <span className="font-medium">
+                                {loadingSteps[currentLoadingStep].highlight}
                               </span>
-                            </div>
-                            <div className="relative flex items-center" style={{height: '32px'}}>
-                              <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-1/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-3/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-                                <div className="w-4 h-4 bg-[#b97a3c22] rotate-45 animate-pulse" style={{borderRadius: '4px'}}></div>
-                              </div>
-                              <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>Low</span>
-                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>High</span>
-                            </div>
-                            <p className="mt-2 text-base text-black font-medium">
-                              <span className="inline-block w-full h-4 rounded mb-1 animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                              <span className="inline-block w-3/4 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                            </p>
-                          </div>
+                            )}
+                          </span>
                         ))}
-                      </div>
-
-                      {/* Suggestions Section Placeholder */}
-                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mt-6">
-                        <h4 className="text-sm font-medium text-[#4b3a1a] mb-3">Improvement Suggestions</h4>
-                        <div className="space-y-2">
-                          <span className="inline-block w-full h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                          <span className="inline-block w-5/6 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                          <span className="inline-block w-4/5 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Market Section Scaffolding */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Market</h3>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_944#slide=id.g35b2f72a621_1_944"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Market slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {/* User Type */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">User Type</span>
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">
-                            <span className="inline-block w-full h-4 rounded mb-1 animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                            <span className="inline-block w-2/3 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                          </p>
-                        </div>
-                        {/* Behavioral Segment */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">Behavioral Segment</span>
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">
-                            <span className="inline-block w-full h-4 rounded mb-1 animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                            <span className="inline-block w-2/3 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                          </p>
-                        </div>
-                        {/* AI Mindset */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 md:col-span-2">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">AI Mindset</span>
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">
-                            <span className="inline-block w-full h-4 rounded mb-1 animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                            <span className="inline-block w-2/3 h-4 rounded animate-pulse" style={{ background: '#4b3a1a22' }}></span>
-                          </p>
-                        </div>
+                        <span>…</span>
                       </div>
                     </div>
                   </div>
                 )}
                 {feedbackData && maturityData && (
-                  <div className="space-y-16">
-                    {/* Agent Maturity Classification Section */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Agent Maturity</h3>
+                  <div className="space-y-6">
+                    {/* Agent Maturity Section - Clean Layout */}
+                    <div className="mt-4 rounded-xl p-6" style={{ backgroundColor: 'rgba(230, 220, 199, 0.4)' }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xl font-semibold text-black">Agent Maturity</h2>
                       </div>
+                      <p className="text-sm text-[#6b5e4f] mb-6 leading-relaxed">
+                        Your agent's current maturity level and the capabilities that define each stage of development.
+                      </p>
                       
-                      {/* Static Agent Types Information */}
-                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mb-6">
-                        <div className="mb-4">
-                          <p className="text-base text-black font-medium mb-4">
-                            Maturity Levels
-                          </p>
+                      <div>
+                        {/* Horizontal Maturity Stepper */}
+                        <div className="mb-6">
+                          <div className="flex items-center justify-between relative gap-4">
+                            {/* Progress Line Background - extends past L2 to imply more levels */}
+                            <div className="absolute top-1/2 h-0.5 bg-[#e6dcc7] z-0 transform -translate-y-1/2" style={{
+                              left: '12.5%',
+                              right: '5%'
+                            }}></div>
+                            
+                            {/* Progress Line Fill - shows current progress */}
+                            <div className={`absolute top-1/2 h-0.5 bg-[#e6dcc7] z-0 transition-all duration-500 transform -translate-y-1/2`} style={{
+                              left: '12.5%',
+                              width: (maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1') === 'L0' ? '0%' :
+                                     (maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1') === 'L1' ? '29.166%' :
+                                     '58.333%'
+                            }}></div>
+                            
+                            {/* Steps */}
+                            {[
+                              {
+                                level: 'L0',
+                                name: 'Connector agents',
+                                description: 'passively move data between systems with no decision-making',
+                                current: (maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1') === 'L0'
+                              },
+                              {
+                                level: 'L1',
+                                name: 'Task agents',
+                                description: 'solve defined use cases with moderate autonomy',
+                                current: (maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1') === 'L1'
+                              },
+                              {
+                                level: 'L2',
+                                name: 'Collaborative agents',
+                                description: 'coordinate end-to-end workflows strategically',
+                                current: (maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1') === 'L2'
+                              }
+                            ].map((step, index) => (
+                              <div key={step.level} className="flex flex-col items-center relative z-10 flex-1">
+                                {/* Step Card Content - styled like trait matrix */}
+                                <div 
+                                  className={`rounded-xl overflow-hidden w-full max-w-xs transition-all duration-300 flex flex-col border-2 border-[#e6dcc7]`}
+                                  style={{
+                                    backgroundColor: step.current ? '#e6dcc7' : '#f0ead9'
+                                  }}
+                                >
+                                  <div className="p-4 flex flex-col">
+                                    {/* Level eyebrow at top of card */}
+                                    <div className="mb-2 flex items-center">
+                                      <div className="flex items-center gap-2">
+                                        {/* Geometric shape icon */}
+                                        <div className="w-3 h-3 flex items-center justify-center">
+                                          {step.level === 'L0' && (
+                                            <div className={`w-3 h-3 rounded-full ${step.current ? 'bg-[#b97a3c]' : 'bg-[#d4b896]'}`}></div>
+                                          )}
+                                          {step.level === 'L1' && (
+                                            <div className={`w-0 h-0 border-l-[6px] border-r-[6px] border-b-[10px] border-l-transparent border-r-transparent ${step.current ? 'border-b-[#b97a3c]' : 'border-b-[#d4b896]'}`}></div>
+                                          )}
+                                          {step.level === 'L2' && (
+                                            <div className={`w-[9px] h-[9px] rotate-45 ${step.current ? 'bg-[#b97a3c]' : 'bg-[#d4b896]'}`}></div>
+                                          )}
+                                        </div>
+                                        <span className={`text-xs tracking-wide ${step.current ? 'font-semibold text-[#b97a3c]' : 'font-medium text-[#6b5e4f]'}`}>Level {step.level.replace('L', '')}</span>
+                                      </div>
+                                    </div>
+                                    
+
+
+                                    {/* Combined label and description */}
+                                    <div className="text-sm leading-relaxed flex-1 text-black">
+                                      {step.name} {step.description.toLowerCase()}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                         
-                        <div className="space-y-4 text-sm text-[#4b3a1a]">
-                          <div className="border-l-4 border-[#b97a3c] pl-4">
-                            <p className="font-semibold mb-1">L0 - Connector Agents</p>
-                            <p>Agents that passively push and pull data from external sources. Simple data ingress/egress with no decision-making or end-to-end use case ownership.</p>
-                          </div>
-                          
-                          <div className="border-l-4 border-[#b97a3c] pl-4">
-                            <p className="font-semibold mb-1">L1 - Task Agents</p>
-                            <p>Agents built to solve a defined use case, often across multiple tools. They may call other agents or use internal "skills" and have an opinion about their role.</p>
-                          </div>
-                          
-                          <div className="border-l-4 border-[#b97a3c] pl-4">
-                            <p className="font-semibold mb-1">L2 - Collaborative Agents</p>
-                            <p>Strategic agents that coordinate end-to-end workflows, invoking other agents and tools to achieve outcomes. Proactive by design and can string together multiple steps.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mb-4">
-                          <p className="text-base text-black font-medium mb-4">
-                            Your agent is currently classified as <strong>{maturityData?.classification?.maturity_classification_name} ({maturityData?.classification?.maturity_classification})</strong>
+                        <div className="space-y-4 text-black">
+                          <p className="text-base text-[#4b3a1a]">
+                            Your agent is a {maturityData?.classification?.maturity_classification_name || 'Task Agent'} with {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1'} maturity. {(() => {
+                              const level = maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1';
+                              const definitions = {
+                                'L0': 'It passively pushes and pulls data from external sources with no decision-making or end-to-end ownership.',
+                                'L1': 'It performs a clearly defined task using simple rules and basic tool coordination.',
+                                'L2': 'It coordinates end-to-end workflows, invoking other agents and tools to achieve strategic outcomes.'
+                              };
+                              return definitions[level as keyof typeof definitions] || definitions['L1'];
+                            })()}
                           </p>
-                      </div>
 
-                      {/* Maturity Dimensions with Plots */}
-                      <div className="space-y-4">
-                        {[
-                          { 
-                            label: "Autonomy", 
-                            level: maturityData?.classification?.autonomy_level, 
-                            description: maturityData?.classification?.autonomy_description,
-                            left: "Low",
-                            right: "High"
-                          },
-                          { 
-                            label: "Proactivity", 
-                            level: maturityData?.classification?.proactivity_level, 
-                            description: maturityData?.classification?.proactivity_description,
-                            left: "Low",
-                            right: "High"
-                          },
-                          { 
-                            label: "Integration", 
-                            level: maturityData?.classification?.integration_level, 
-                            description: maturityData?.classification?.integration_description,
-                            left: "Low",
-                            right: "High"
-                          },
-                          { 
-                            label: "Use Case Ownership", 
-                            level: maturityData?.classification?.use_case_ownership_level, 
-                            description: maturityData?.classification?.use_case_ownership_description,
-                            left: "Low",
-                            right: "High"
-                          },
-                          { 
-                            label: "Orchestration", 
-                            level: maturityData?.classification?.orchestration_level, 
-                            description: maturityData?.classification?.orchestration_description,
-                            left: "Low",
-                            right: "High"
-                          },
-                          { 
-                            label: "Intelligence", 
-                            level: maturityData?.classification?.intelligence_level, 
-                            description: maturityData?.classification?.intelligence_description,
-                            left: "Low",
-                            right: "High"
-                          },
-                        ].map((item) => (
-                          <div key={item.label} className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="text-sm font-light text-[#4b3a1a]">{item.label}</span>
-                              <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c] text-white">{item.level}</span>
-                            </div>
-                            <div className="relative flex items-center" style={{height: '32px'}}>
-                              <div className="w-full h-1 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-1/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute left-3/4 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#e6dcc7] rounded-full"></div>
-                              <div
-                                className="absolute transition-all duration-500"
-                                style={{
-                                  left: diamondsReady && maturityData
-                                    ? `calc(${(((getLevelScore(item.level)) - 1) / 4) * 100}% - 8px)`
-                                    : 'calc(50% - 8px)'
-                                }}
-                              >
-                                <div className="w-4 h-4 bg-[#b97a3c] rotate-45" style={{borderRadius: '4px'}}></div>
-                              </div>
-                              <span className="absolute left-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', paddingRight: '1rem'}}>{item.left}</span>
-                              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-light text-[#4b3a1a] bg-[#e6dcc7] px-2 py-1" style={{clipPath: 'polygon(0% 50%, 15% 0%, 100% 0%, 100% 100%, 15% 100%)', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', paddingLeft: '1rem'}}>{item.right}</span>
-                            </div>
-                            <p className="mt-2 text-base text-black font-medium">{item.description}</p>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Suggestions Section */}
-                      {maturityData?.suggestions && (
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 mt-6">
-                          <h4 className="text-sm font-medium text-[#4b3a1a] mb-3">Improvement Suggestions</h4>
-                          <p className="text-base text-black font-medium whitespace-pre-line">{maturityData.suggestions}</p>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Market Section */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Market</h3>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_944#slide=id.g35b2f72a621_1_944"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Market slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {/* User Type */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">User Type</span>
-                            <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c] text-white">{feedbackData?.Market?.UserType?.label ?? ''}</span>
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Market?.UserType?.rationale ?? ''}</p>
-                        </div>
-                        {/* Behavioral Segment */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">Behavioral Segment</span>
-                            <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c] text-white">{feedbackData?.Market?.BehavioralSegment?.label ?? ''}</span>
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Market?.BehavioralSegment?.rationale ?? ''}</p>
-                        </div>
-                        {/* AI Mindset */}
-                        <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5 md:col-span-2">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-light text-[#4b3a1a]">AI Mindset</span>
-                            <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full bg-[#b97a3c] text-white">{feedbackData?.Market?.UserAIMindset?.label ?? ''}</span>
-                          </div>
-                          <p className="mt-2 text-base text-black font-medium">{feedbackData?.Market?.UserAIMindset?.rationale ?? ''}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Next Steps Section */}
-                    <div className="mt-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-base font-medium text-black w-48">Next Steps</h3>
-                      </div>
-                      <div className="bg-[#f8f4e7] border border-[#e6dcc7] rounded-xl p-5">
-                        <div className="text-base text-black font-medium">
-                          {maturityData?.classification?.maturity_classification === 'L0' ? (
-                            <div>
-                              <p className="mb-3">Assess LOE; Build if low</p>
-                              <p className="mb-2">Work with eng and product to determine:</p>
-                              <ul className="list-disc list-inside space-y-1 ml-4">
-                                <li>Is it technically feasible?</li>
-                                <li>Is it a large effort?</li>
-                              </ul>
-                            </div>
-                          ) : (
-                            <div>
-                              <p className="mb-3">Confirm User value + Potential Revenue with PMM & UXMR</p>
-                              <p className="mb-2">Work with eng and product to determine:</p>
-                              <ul className="list-disc list-inside space-y-1 ml-4">
-                                <li>Is it technically feasible?</li>
-                                <li>Is it a large effort?</li>
+                          {/* Evolution section - only for non-L2 agents */}
+                          {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') !== 'L2' && (
+                            <div className="mt-6">
+                              <p className="text-base font-medium text-black mb-3">To improve its maturity level:</p>
+                              
+                              <ul className="space-y-1 text-black ml-4">
+                                {(() => {
+                                  const currentLevel = maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1';
+                                  const evolutionSuggestions = {
+                                    'L0': [
+                                      'Add rule-based logic to respond to external triggers with defined actions',
+                                      'Pull from multiple sources to coordinate a task (e.g., matching calendar and email)',
+                                      'Surface relevant recommendations based on context, not just input'
+                                    ],
+                                    'L1': [
+                                      'Add natural language processing to better understand email content',
+                                      'Implement learning to improve categorization accuracy over time',
+                                      'Automate responses or actions based on email content'
+                                    ]
+                                  };
+                                  
+                                  const suggestions = evolutionSuggestions[currentLevel as keyof typeof evolutionSuggestions] || [];
+                                  
+                                  return suggestions.map((item, idx) => (
+                                    <li key={idx} className="flex items-start">
+                                      <span className="text-black mr-2">•</span>
+                                      <span>{item}</span>
+                                    </li>
+                                  ));
+                                })()}
                               </ul>
                             </div>
                           )}
                         </div>
                       </div>
                     </div>
+
+                    {/* Agent Traits Section */}
+                    <div className="mt-4 rounded-xl p-6" style={{ backgroundColor: 'rgba(230, 220, 199, 0.4)' }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xl font-semibold text-black">Agent Traits</h2>
+                      </div>
+                      <p className="text-sm text-[#6b5e4f] mb-6 leading-relaxed">
+                        Here's how your agent should incorporate each trait based on our evaluation.
+                      </p>
+
+                      {/* Enhanced Attribute Visualization */}
+                      <AttributeVisualization
+                        attributes={[
+                          { 
+                            label: "Autonomy", 
+                            level: maturityData?.classification?.autonomy_level || '', 
+                            description: maturityData?.classification?.autonomy_description || "Decision-making authority and ability to operate without step-by-step instructions"
+                          },
+                          { 
+                            label: "Proactivity", 
+                            level: maturityData?.classification?.proactivity_level || '', 
+                            description: maturityData?.classification?.proactivity_description || "Initiation of action based on context, predictions, or user needs"
+                          },
+                          { 
+                            label: "Integration", 
+                            level: maturityData?.classification?.integration_level || '', 
+                            description: maturityData?.classification?.integration_description || "Capability to connect with and operate across multiple tools and systems"
+                          },
+                          { 
+                            label: "Use Case Ownership", 
+                            level: maturityData?.classification?.use_case_ownership_level || '', 
+                            description: maturityData?.classification?.use_case_ownership_description || "End-to-end responsibility for specific workflows and outcomes"
+                          },
+                          { 
+                            label: "Orchestration", 
+                            level: maturityData?.classification?.orchestration_level || '', 
+                            description: maturityData?.classification?.orchestration_description || "Multi-step coordination and ability to manage complex workflows"
+                          },
+                          { 
+                            label: "Intelligence", 
+                            level: maturityData?.classification?.intelligence_level || '', 
+                            description: maturityData?.classification?.intelligence_description || "Contextual understanding, adaptability, and learning capabilities"
+                          }
+                        ]}
+                        maturityLevel={maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1'}
+                      />
+                    </div>
+                    
+                    {/* Target Audience Section */}
+                    <div className="mt-4 rounded-xl p-6" style={{ backgroundColor: 'rgba(230, 220, 199, 0.4)' }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-xl font-semibold text-black">Target Audience</h2>
+                        <a
+                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_944#slide=id.g35b2f72a621_1_944"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
+                        >
+                          <span className="text-sm font-medium">View Market slides</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                          </svg>
+                        </a>
+                      </div>
+                      <p className="text-sm text-[#6b5e4f] mb-6 leading-relaxed">
+                        The specific user types, behavioral segments, and AI mindsets most likely to adopt your agent.
+                      </p>
+                      <div className="rounded-xl overflow-hidden">
+                        <div className="grid grid-cols-2">
+                        {/* User Type */}
+                          <div className="pb-5 pr-8">
+                            <div className="mb-3">
+                              <span className="text-sm font-medium text-[#4b3a1a]">User Type</span>
+                            </div>
+                            <div className="mb-2">
+                              <div className="flex flex-wrap gap-2">
+                                {['Knowledge workers', 'Students', 'Both'].map((option) => {
+                                  const userTypeLabel = feedbackData?.Market?.UserType?.label?.toLowerCase().trim() || '';
+                                  const optionLower = option.toLowerCase().trim();
+                                  
+                                  // Check if this option is mentioned in the user type (handles comma-separated values)
+                                  let isSelected = false;
+                                  
+                                  if (option === 'Both') {
+                                    // "Both" is selected if the API response contains both "knowledge" and "student"
+                                    isSelected = userTypeLabel.includes('knowledge') && userTypeLabel.includes('student');
+                                  } else {
+                                    // Regular matching for individual options
+                                    isSelected = userTypeLabel === optionLower || 
+                                               userTypeLabel.includes(optionLower) || 
+                                               optionLower.includes(userTypeLabel) ||
+                                               userTypeLabel.split(',').some(part => 
+                                                 part.trim().toLowerCase() === optionLower ||
+                                                 part.trim().toLowerCase().includes(optionLower.split(' ')[0]) // match first word
+                                               );
+                                  }
+                                  
+                                  return (
+                                    <span 
+                                      key={option}
+                                      className={`text-xs px-2 py-1 rounded font-medium ${
+                                        isSelected
+                                          ? 'bg-[#b3884d] text-white' 
+                                          : 'bg-[#e6dcc7] text-[#4b3a1a]'
+                                      }`}
+                                    >
+                                      {option}
+                                    </span>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                            <div className="text-sm text-[#4b3a1a] leading-relaxed">
+                              <span>{feedbackData?.Market?.UserType?.rationale ?? ''}</span>
+                            </div>
+                          </div>
+                          
+                          {/* Behavioral Segment */}
+                          <div className="pb-5 pl-8 border-l border-[#e6dcc7]">
+                            <div className="mb-3">
+                              <span className="text-sm font-medium text-[#4b3a1a]">Behavioral Segment</span>
+                            </div>
+                            <div className="mb-2">
+                              <div className="flex flex-wrap gap-2">
+                                {['Operator', 'Explorer', 'Collaborator', 'Creator', 'Analyst'].map((option) => (
+                                  <span 
+                                    key={option}
+                                    className={`text-xs px-2 py-1 rounded font-medium ${
+                                      feedbackData?.Market?.BehavioralSegment?.label === option 
+                                        ? 'bg-[#b3884d] text-white' 
+                                        : 'bg-[#e6dcc7] text-[#4b3a1a]'
+                                    }`}
+                                  >
+                                    {option}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="text-sm text-[#4b3a1a] leading-relaxed">
+                              <span>{feedbackData?.Market?.BehavioralSegment?.rationale ?? ''}</span>
+                        </div>
+                          </div>
+                          
+                          {/* AI Mindset - spans 2 columns */}
+                          <div className="col-span-2 pt-5 border-t border-[#e6dcc7]">
+                            <div className="mb-3">
+                              <span className="text-sm font-medium text-[#4b3a1a]">AI Mindset</span>
+                            </div>
+                            <div className="mb-2">
+                              <div className="flex flex-wrap gap-2">
+                                {['AI Curious', 'Capable but Cautious', 'Power User', 'Skeptical but Open', 'Engaged and Enabled'].map((option) => {
+                                  const aiMindsetLabel = feedbackData?.Market?.UserAIMindset?.label?.toLowerCase().trim() || '';
+                                  const optionLower = option.toLowerCase().trim();
+                                  const isSelected = aiMindsetLabel === optionLower || 
+                                                   aiMindsetLabel.includes(optionLower) || 
+                                                   optionLower.includes(aiMindsetLabel);
+                                  
+                                  return (
+                                    <span 
+                                      key={option}
+                                      className={`text-xs px-2 py-1 rounded font-medium ${
+                                        isSelected
+                                          ? 'bg-[#b3884d] text-white' 
+                                          : 'bg-[#e6dcc7] text-[#4b3a1a]'
+                                      }`}
+                                    >
+                                      {option}
+                                    </span>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                            <div className="text-sm text-[#4b3a1a] leading-relaxed">
+                              <span>{feedbackData?.Market?.UserAIMindset?.rationale ?? ''}</span>
+                        </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Next Steps Section */}
+                    <NextStepsSection />
                   </div>
                 )}
               </div>

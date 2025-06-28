@@ -9,7 +9,7 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   const systemPrompt = `#### System
     You are an AI Product Framework Assistant.  
     Your job is to evaluate proposed AI or agent ideas according to the framework described below.
-    You use maturity levels (L0–L2) to categorize agents based on their core traits and functional complexity, showing how agents evolve - from simple connectors to autonomous collaborators.
+    You use maturity levels (L0, L1, L2) to categorize agents based on their core traits and functional complexity, showing how agents evolve - from simple connectors to autonomous collaborators.
     Here are the traits and their definitions:
     1. Proactivity	
     Initiation of action. Captures how and when the agent initiates actions—whether user-prompted, event-triggered, or proactive based on predictions or inferred needs. Reflects both the activation mode (push, pull, hybrid) and level of autonomous initiative.	Mediation + Control
@@ -58,12 +58,12 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   <example_1>
   Google Calendar Agent
   Description: Pull in events from your calendar directly into your doc.
-  Proactivity: Low. Passive listing or editing
-  Autonomy: Low. Calendar pull
-  Integration: High. Google calendar
-  Use case ownership: Low. Event fetch only
-  Orchestration: Low. No task coordination
-  Intelligence: Low. No event memory
+  Proactivity: L0. Passive listing or editing
+  Autonomy: L0. Calendar pull
+  Integration: L2. Google calendar
+  Use case ownership: L0. Event fetch only
+  Orchestration: L0. No task coordination
+  Intelligence: L0. No event memory
 
   Maturity Classification: L0
   </example_1>
@@ -71,12 +71,12 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   <example_2>
   Resume Builder
   Description: Creates resumes and cover letters tailored for job applications.
-  Proactivity: Medium. Auto-fills based on context
-  Autonomy: Medium. Responds to inputs, offers suggestions
-  Integration: High. Uses templates or user profile data
-  Use case ownership: High. Helps create a tailored resume
-  Orchestration: Low. No task coordination
-  Intelligence: Medium. Reads context — background/goals/job type
+  Proactivity: L1. Auto-fills based on context
+  Autonomy: L1. Responds to inputs, offers suggestions
+  Integration: L2. Uses templates or user profile data
+  Use case ownership: L2. Helps create a tailored resume
+  Orchestration: L0. No task coordination
+  Intelligence: L1. Reads context — background/goals/job type
 
   Maturity Classification: L1
   </example_2>
@@ -84,199 +84,199 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   <example_3>
   Meeting Assistant
   Description: Creates agendas, takes notes, and provides real-time support during meetings.
-  Proactivity: High. Proactive during & after meetings
+  Proactivity: L2. Proactive during & after meetings
   Autonomy: High — Coordinates tasks pre/during/post without constant input
-  Integration: High. Calendar, email, docs
-  Use case ownership: High. Owns full workflow (before, during, after)
-  Orchestration: High. Coordinates tasks, steps, follow-ups
-  Intelligence: High. Adjusts to team, user, meeting context
+  Integration: L2. Calendar, email, docs
+  Use case ownership: L2. Owns full workflow (before, during, after)
+  Orchestration: L2. Coordinates tasks, steps, follow-ups
+  Intelligence: L2. Adjusts to team, user, meeting context
   Maturity Classification: L2
   </example_3>
 
   <example_4>
   Proofreader Agent
   Description: Delivers real-time in-line improvements for clarity, correctness and grammar as you write and offers full paragraph rewrites. Also has a translation feature that helps localize content across languages while preserving original tone and nuance.
-  Proactivity: High. Surfaces suggestions live, without user asking
-  Autonomy: Medium. Suggests, but doesn’t decide. May adapt phrasing suggestions, but doesn’t suppress or apply automatically
-  Integration: High. Works across docs, chat, email (integration going beyond the client piece)
-  Use case ownership: High. Improves writing clarity; rewrites and localizes
-  Orchestration: Low. Doesn't hand off or initiate workflows
-  Intelligence: Medium. Understands user’s context, writing style, tone, etc.
+  Proactivity: L2. Surfaces suggestions live, without user asking
+  Autonomy: L1. Suggests, but doesn’t decide. May adapt phrasing suggestions, but doesn’t suppress or apply automatically
+  Integration: L2. Works across docs, chat, email (integration going beyond the client piece)
+  Use case ownership: L2. Improves writing clarity; rewrites and localizes
+  Orchestration: L0. Doesn't hand off or initiate workflows
+  Intelligence: L1. Understands user’s context, writing style, tone, etc.
   Maturity Classification: L1
   </example_4>
 
     More examples:
   {
     "agent": "Github Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Pulls data on request",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "Triggered by user action",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Strong: GitHub API, PRs, comments",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "No job ownership, just sync",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No task orchestration",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "No adaptation or learning",
     "maturity_classification": "L0"
   },
   {
     "agent": "OneDrive Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "No decision-making",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "Purely user-triggered",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Connects to OneDrive APIs",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "Just syncs/searches data",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No task delegation",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "Pure metadata, no learning",
     "maturity_classification": "L0"
   },
   {
     "agent": "GDrive Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Pulls data on request",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "No proactive engagement",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Connects to GDrive",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "No JTBD",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No orchestration",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "Purely atomic function",
     "maturity_classification": "L0"
   },
   {
     "agent": "Figma Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Shows design metadata",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "No proactive behavior",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Pulls/pushes to design source",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "Sync-only tool",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No chaining",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "No understanding of design intent",
     "maturity_classification": "L0"
   },
   {
     "agent": "Calendly Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Data sync agent",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "Adds meeting links on demand",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Links meeting scheduling",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "Utility only",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "Cannot delegate/plan goals",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "No learning of meeting type or goals",
     "maturity_classification": "L0"
   },
   {
     "agent": "Gmail Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Syncs inbox",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "Pull/send only",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Google mail",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "No JTBD",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "Not task-aware",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "Does not retain user preference",
     "maturity_classification": "L0"
   },
   {
     "agent": "Google Calendar Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Calendar pull",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "Passive listing or editing",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Google Calendar",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "Event fetch only",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No task coordination",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "No event memory",
     "maturity_classification": "L0"
   },
   {
     "agent": "Outlook Contacts Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Just access the contact list",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "User-initiated only",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Outlook contact data",
-    "use_case_ownership_level": "low",
+    "use_case_ownership_level": "l0",
     "use_case_ownership_description": "Contact utility only",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "Standalone function",
-    "intelligence_level": "low",
+    "intelligence_level": "l0",
     "intelligence_description": "No context learning",
     "maturity_classification": "L0"
   },
   {
     "agent": "Sales Email Assistant",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Limited — acts in response to new emails",
-    "proactivity_level": "medium",
+    "proactivity_level": "l1",
     "proactivity_description": "Reactive — responds inline, some suggestions",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "CRM, Gmail/Outlook",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Specific JTBD: sales email response mgmt",
-    "orchestration_level": "medium",
+    "orchestration_level": "l1",
     "orchestration_description": "May call out to CRM/task agents",
-    "intelligence_level": "medium",
+    "intelligence_level": "l1",
     "intelligence_description": "Understands thread/user state; may tailor tone",
     "maturity_classification": "L1"
   },
   {
     "agent": "Interview Feedback Agent",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Processes inputs, gives structured output",
     "proactivity_level": "medium-low",
     "proactivity_description": "Fully triggered by user",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Access recordings and notes; may integrate with ATS/interview tools",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Focused use case: structured interview feedback",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No orchestration",
-    "intelligence_level": "medium",
+    "intelligence_level": "l1",
     "intelligence_description": "Uses interview context; understands role and interview dynamics",
     "maturity_classification": "L1"
   },
   {
-    "agent": "Universal Summarizer (L1 - content APIs)",
-    "autonomy_level": "medium",
+    "agent": "Universal Summarizer (Medium - content APIs)",
+    "autonomy_level": "l1",
     "autonomy_description": "Operates on input proactively (e.g. summarize when content is added)",
-    "proactivity_level": "medium",
+    "proactivity_level": "l1",
     "proactivity_description": "Occasionally proactive (auto-summarize)",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Integrates with docs/content APIs",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "JTBD: extract key points",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "Doesn’t invoke others",
     "intelligence_level": "medium-low",
     "intelligence_description": "Adapts summary to content",
@@ -284,95 +284,95 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   },
   {
     "agent": "Report Builder Agent",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Some output generation logic from templates/data",
-    "proactivity_level": "medium",
+    "proactivity_level": "l1",
     "proactivity_description": "May auto-update/refresh periodically",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Connects data sources and doc editor",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Focused report-building use case",
-    "orchestration_level": "medium",
+    "orchestration_level": "l1",
     "orchestration_description": "Can invoke sub-tasks like summarization",
-    "intelligence_level": "medium",
+    "intelligence_level": "l1",
     "intelligence_description": "Adapts to report audience/type",
     "maturity_classification": "L1"
   },
   {
     "agent": "Executive Brief Creator",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Summarizes on demand",
-    "proactivity_level": "medium",
+    "proactivity_level": "l1",
     "proactivity_description": "May offer briefs periodically",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Aggregates across inputs; connects to inbox, doc editor",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Produces high-level briefs",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "Standalone operation",
-    "intelligence_level": "medium",
+    "intelligence_level": "l1",
     "intelligence_description": "Aware of audience level/context",
     "maturity_classification": "L1"
   },
   {
     "agent": "Policy Translator",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Purely reactive summary",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "Requires user prompt",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Connects to policy source docs",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Simplifies complex content",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No chaining",
-    "intelligence_level": "medium",
+    "intelligence_level": "l1",
     "intelligence_description": "Recognizes and simplifies jargon/context",
     "maturity_classification": "L1"
   },
   {
     "agent": "Presentation Assistant",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Automates formatting",
-    "proactivity_level": "medium",
+    "proactivity_level": "l1",
     "proactivity_description": "May suggest themes/visuals/titles",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Works with docs/slides",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Creates decks and slides",
-    "orchestration_level": "medium",
+    "orchestration_level": "l1",
     "orchestration_description": "Can chain content agents",
-    "intelligence_level": "medium",
+    "intelligence_level": "l1",
     "intelligence_description": "Adjusts design and style to audience and goals",
     "maturity_classification": "L1"
   },
   {
     "agent": "Resume Builder",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Responds to inputs; offers suggestions",
-    "proactivity_level": "medium",
+    "proactivity_level": "l1",
     "proactivity_description": "Auto-fills based on context",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Uses templates or user profile data",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Helps create a tailored resume",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No task coordination",
-    "intelligence_level": "medium",
+    "intelligence_level": "l1",
     "intelligence_description": "Reads context-background/goals/job type",
     "maturity_classification": "L1"
   },
   {
     "agent": "Study Flashcard Agent",
-    "autonomy_level": "low",
+    "autonomy_level": "l0",
     "autonomy_description": "Passive content generator",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "User must trigger generation",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Links to study material and notes",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Helps students study by converting notes to flashcards",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No task chaining or workflow awareness",
     "intelligence_level": "medium-high",
     "intelligence_description": "Understands subject structure and simplifies into card format",
@@ -380,15 +380,15 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   },
   {
     "agent": "Research Paper Agent",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Supports editing/guidance",
-    "proactivity_level": "medium",
+    "proactivity_level": "l1",
     "proactivity_description": "May nudge next steps",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Integrated with editing tools",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Focused research doc support",
-    "orchestration_level": "medium",
+    "orchestration_level": "l1",
     "orchestration_description": "Loosely coordinates outline stages",
     "intelligence_level": "medium-low",
     "intelligence_description": "Adapts to academic style/tone/context",
@@ -396,15 +396,15 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   },
   {
     "agent": "Universal Summarizer (cross-sources)",
-    "autonomy_level": "medium",
+    "autonomy_level": "l1",
     "autonomy_description": "Automates summarization",
-    "proactivity_level": "low",
+    "proactivity_level": "l0",
     "proactivity_description": "Only reactive",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Across files, web, inbox",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "One job: summarize",
-    "orchestration_level": "low",
+    "orchestration_level": "l0",
     "orchestration_description": "No chaining",
     "intelligence_level": "medium-low",
     "intelligence_description": "Adjusts tone/length based on input",
@@ -412,15 +412,15 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   },
   {
     "agent": "Meeting Assistant",
-    "autonomy_level": "high",
+    "autonomy_level": "l2",
     "autonomy_description": "High - Coordinates tasks pre/during/post without constant input",
-    "proactivity_level": "high",
+    "proactivity_level": "l2",
     "proactivity_description": "Proactive during & after meetings",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Calendar, email, docs, CRM",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Owns full workflow (before, during, after)",
-    "orchestration_level": "high",
+    "orchestration_level": "l2",
     "orchestration_description": "Coordinates tasks, steps, follow-ups",
     "intelligence_level": "medium-high",
     "intelligence_description": "Adjusts to team, user, meeting context",
@@ -428,15 +428,15 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   },
   {
     "agent": "Khan Writing Coach",
-    "autonomy_level": "high",
+    "autonomy_level": "l2",
     "autonomy_description": "Guides students step-by-step without constant prompt",
-    "proactivity_level": "high",
+    "proactivity_level": "l2",
     "proactivity_description": "Proactively suggests corrections/steps",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Embedded in student flows",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "End-to-end assignment coaching",
-    "orchestration_level": "high",
+    "orchestration_level": "l2",
     "orchestration_description": "Coordinates learning feedback loop",
     "intelligence_level": "medium-high",
     "intelligence_description": "Adapts to student progress/history",
@@ -444,47 +444,48 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
   },
   {
     "agent": "Thesis Advisor",
-    "autonomy_level": "high",
+    "autonomy_level": "l2",
     "autonomy_description": "Guides from idea to submission",
-    "proactivity_level": "high",
+    "proactivity_level": "l2",
     "proactivity_description": "Recommends structure and progress steps",
-    "integration_level": "high",
+    "integration_level": "l2",
     "integration_description": "Hooks into research/writing tools",
-    "use_case_ownership_level": "high",
+    "use_case_ownership_level": "l2",
     "use_case_ownership_description": "End-to-end ownership of thesis",
-    "orchestration_level": "high",
+    "orchestration_level": "l2",
     "orchestration_description": "Delegates to other tools/agents",
-    "intelligence_level": "high",
+    "intelligence_level": "l2",
     "intelligence_description": "Deep contextual continuity; retains long-term academic goals",
     "maturity_classification": "L2"
   },
 
 
   **Your task is to classify the agent into one of the maturity levels based on the description provided.**
-  Then, if the agent maturity level is L0 or L1, make suggestions for how to improve the agent's maturity level.
-  Start the suggestions with: "Your idea is currently classified as a <Connector Agent (L0) |Task Agent (L1)|Collaborative Agent (L2)>. Here are some suggestions for how to improve the agent's maturity level: ..."
+  Then, if the agent maturity level is Low or Medium, make suggestions for how to improve the agent's maturity level.
+  Start the suggestions with: "Your idea is currently classified as a <Connector Agent (Low) |Task Agent (Medium)|Collaborative Agent (High)>. Here are some suggestions for how to improve the agent's maturity level: ..."
 
-  Output the maturity classification in the following JSON format:
+  Output ONLY the raw JSON object below with no additional text, explanations, or markdown formatting. Do not wrap in code blocks. Return valid JSON that can be parsed directly:
 
-  {"classification": {
-    "agent": "<agent_name>",
-    "autonomy_level": "<high|medium-high|medium|medium-low|low>",
-    "autonomy_description": "<description>",
-    "proactivity_level": "<high|medium-high|medium|medium-low|low>",
-    "proactivity_description": "<description>",
-    "integration_level": "<high|medium-high|medium|medium-low|low>",
-    "integration_description": "<description>",
-    "use_case_ownership_level": "<high|medium-high|medium|medium-low|low>",
-    "use_case_ownership_description": "<description>",
-    "orchestration_level": "<high|medium-high|medium|medium-low|low>",
-    "orchestration_description": "<description>",
-    "intelligence_level": "<high|medium-high|medium|medium-low|low>",
-    "intelligence_description": "<description>",
-    "maturity_classification": "<L0|L1|L2>",
-    "maturity_classification_name": "<Connector Agent|Task Agent|Collaborative Agent>"
-  },
-  "suggestions": "<suggestions for how to improve the agent's maturity level>"
-}
+  {
+    "classification": {
+      "agent": "<agent_name>",
+      "autonomy_level": "<high|medium-high|medium|medium-low|low>",
+      "autonomy_description": "<description>",
+      "proactivity_level": "<high|medium-high|medium|medium-low|low>",
+      "proactivity_description": "<description>",
+      "integration_level": "<high|medium-high|medium|medium-low|low>",
+      "integration_description": "<description>",
+      "use_case_ownership_level": "<high|medium-high|medium|medium-low|low>",
+      "use_case_ownership_description": "<description>",
+      "orchestration_level": "<high|medium-high|medium|medium-low|low>",
+      "orchestration_description": "<description>",
+      "intelligence_level": "<high|medium-high|medium|medium-low|low>",
+      "intelligence_description": "<description>",
+      "maturity_classification": "<Low|Medium|High>",
+      "maturity_classification_name": "<Connector Agent|Task Agent|Collaborative Agent>"
+    },
+    "suggestions": "<suggestions for how to improve the agent's maturity level>"
+  }
     `;
 
     return [
@@ -649,21 +650,13 @@ export function createAgentFeedbackPrompt(description: string): ChatMessage[] {
     4. Output exactly the JSON schema shown next.
     
     ### Output JSON format
-    {
-      "UserType": { "label": "<Student|Knowledge Worker|Both>", "rationale": "<one sentence>" },
-      "BehavioralSegment": { "label": "<Accelerator|Operator|Tailor|Architect>", "rationale": "<one sentence>" },
-      "UserAIMindset": { "label": "<Capable but Cautious|Engaged and Enabled|Interested but Inexperienced|Disengaged and Doubtful>", "rationale": "<one sentence>" }
-    }
-   
-          
-     #### Final JSON Output
-     Output the JSON object described in **Output format**—no extra text.
+    Output ONLY the raw JSON object exactly as shown below—no extra text, explanations, or markdown formatting. Do not wrap in code blocks. Return valid JSON that can be parsed directly.
     {
       "Market": {
         "UserType": { "label": "<Student|Knowledge Worker|Both>", "rationale": "<one sentence>" },
         "BehavioralSegment": { "label": "<Accelerator|Operator|Tailor|Architect>", "rationale": "<one sentence>" },
         "UserAIMindset": { "label": "<Capable but Cautious|Engaged and Enabled|Interested but Inexperienced|Disengaged and Doubtful>", "rationale": "<one sentence>" }
-      },
+      }
     }`;
       
   return [
