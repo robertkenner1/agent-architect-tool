@@ -182,8 +182,11 @@ export function RichTextInput({ value, onChange, className, onSubmit, disabled }
           onKeyDown={handleKeyDown}
           placeholder={currentPlaceholder}
           disabled={disabled}
-          className={`w-full h-[24rem] text-sm rounded-2xl p-6 pr-12 pb-20 placeholder-[#b97a3c66] focus:outline-none focus:ring-2 focus:ring-[#e6dcc7] resize-none scrollbar-hide hover:scrollbar-show ${className}`}
-          style={{ backgroundColor: 'rgba(230, 220, 199, 0.4)' }}
+          className={`w-full h-[24rem] text-sm rounded-2xl p-6 pr-12 pb-20 placeholder-[#b97a3c66] focus:outline-none focus:ring-2 focus:ring-[#e6dcc7] resize-none scrollbar-hide hover:scrollbar-show force-black-text ${className}`}
+          style={{ 
+            backgroundColor: 'rgba(230, 220, 199, 0.4)',
+            color: '#000000 !important'
+          }}
         />
       </div>
     </div>

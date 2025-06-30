@@ -95,7 +95,7 @@ export default function EvaluatePage() {
                   name="userFeedback"
                   value={form.userFeedback}
                   onChange={handleChange}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent force-black-text"
                   rows={4}
                   placeholder="What feedback have you received from users?"
                   required
@@ -108,7 +108,7 @@ export default function EvaluatePage() {
                   name="metrics"
                   value={form.metrics}
                   onChange={handleChange}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent force-black-text"
                   rows={4}
                   placeholder="What metrics are you tracking to measure success?"
                   required
@@ -121,7 +121,7 @@ export default function EvaluatePage() {
                   name="improvements"
                   value={form.improvements}
                   onChange={handleChange}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent force-black-text"
                   rows={4}
                   placeholder="What improvements would you like to make?"
                   required

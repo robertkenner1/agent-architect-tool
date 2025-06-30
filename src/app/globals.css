@@ -189,6 +189,12 @@ body {
   animation-delay: 0.5s;
 }
 
+/* Force black text in all text inputs */
+.force-black-text {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
 /* Scrollbar hide/show on hover */
 .scrollbar-hide {
   scrollbar-width: none; /* Firefox */

@@ -130,7 +130,7 @@ export default function PrioritizePage() {
                   name="description"
                   value={form.description}
                   onChange={handleChange}
-                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent force-black-text"
                   rows={3}
                   required
                 />

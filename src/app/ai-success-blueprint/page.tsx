@@ -86,7 +86,7 @@ export default function AISuccessBlueprint() {
                 <textarea
                   id="agentDescription"
                   rows={8}
-                  className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 text-[#000000]"
+                  className="w-full p-4 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 text-[#000000] force-black-text"
                   placeholder="Enter your agent description here..."
                   value={agentDescription}
                   onChange={(e) => setAgentDescription(e.target.value)}
