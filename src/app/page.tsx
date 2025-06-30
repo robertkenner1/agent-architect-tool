@@ -393,7 +393,7 @@ export default function AISuccessBlueprint() {
                         <h2 className="text-xl font-semibold text-black">Agent Maturity</h2>
                       </div>
                       <p className="text-sm text-[#6b5e4f] mb-6 leading-relaxed">
-                        Your agent's current maturity level and the capabilities that define each stage of development.
+                        Your agent's current maturity level and recommendations to increase maturity.
                       </p>
                       
                       <div>
@@ -478,7 +478,7 @@ export default function AISuccessBlueprint() {
                         
                         <div className="space-y-4 text-black">
                           <p className="text-base text-[#4b3a1a]">
-                            Your agent is a {maturityData?.classification?.maturity_classification_name || 'Task Agent'} with {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1'} maturity. {(() => {
+                            Your agent is a <span className="font-medium">{maturityData?.classification?.maturity_classification_name || 'task agent'}</span> with {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1'} maturity. {(() => {
                               const level = maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1';
                               const definitions = {
                                 'L0': 'It passively pushes and pulls data from external sources with no decision-making or end-to-end ownership.',
@@ -492,7 +492,7 @@ export default function AISuccessBlueprint() {
                           {/* Evolution section - only for non-L2 agents */}
                           {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') !== 'L2' && (
                             <div className="mt-6">
-                              <p className="text-base font-medium text-black mb-3">To improve its maturity level:</p>
+                              <p className="text-base font-medium text-black mb-3">To increase its maturity level:</p>
                               
                               <ul className="space-y-1 text-black ml-4">
                                 {(() => {
@@ -529,10 +529,10 @@ export default function AISuccessBlueprint() {
                     {/* Agent Traits Section */}
                     <div className="mt-4 rounded-xl p-6" style={{ backgroundColor: 'rgba(230, 220, 199, 0.4)' }}>
                       <div className="flex items-center justify-between mb-2">
-                        <h2 className="text-xl font-semibold text-black">Agent Traits</h2>
+                        <h2 className="text-xl font-semibold text-black">Agent Attributes</h2>
                       </div>
                       <p className="text-sm text-[#6b5e4f] mb-6 leading-relaxed">
-                        Here's how your agent should incorporate each trait based on our evaluation.
+                        How your agent should incorporate each attribute based on our evaluation.
                       </p>
 
                       {/* Enhanced Attribute Visualization */}
@@ -554,11 +554,6 @@ export default function AISuccessBlueprint() {
                             description: maturityData?.classification?.integration_description || "Capability to connect with and operate across multiple tools and systems"
                           },
                           { 
-                            label: "Use Case Ownership", 
-                            level: maturityData?.classification?.use_case_ownership_level || '', 
-                            description: maturityData?.classification?.use_case_ownership_description || "End-to-end responsibility for specific workflows and outcomes"
-                          },
-                          { 
                             label: "Orchestration", 
                             level: maturityData?.classification?.orchestration_level || '', 
                             description: maturityData?.classification?.orchestration_description || "Multi-step coordination and ability to manage complex workflows"
@@ -577,17 +572,6 @@ export default function AISuccessBlueprint() {
                     <div className="mt-4 rounded-xl p-6" style={{ backgroundColor: 'rgba(230, 220, 199, 0.4)' }}>
                       <div className="flex items-center justify-between mb-2">
                         <h2 className="text-xl font-semibold text-black">Target Audience</h2>
-                        <a
-                          href="https://docs.google.com/presentation/d/1dcmbYWXEImja2UP3JyGza0ebIjFyCZR30O7jVjNA3bQ/edit?slide=id.g35b2f72a621_1_944#slide=id.g35b2f72a621_1_944"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#b97a3c] hover:underline transition flex items-center gap-1"
-                        >
-                          <span className="text-sm font-medium">View Market slides</span>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                          </svg>
-                        </a>
                       </div>
                       <p className="text-sm text-[#6b5e4f] mb-6 leading-relaxed">
                         The specific user types, behavioral segments, and AI mindsets most likely to adopt your agent.
@@ -649,7 +633,7 @@ export default function AISuccessBlueprint() {
                             </div>
                             <div className="mb-2">
                               <div className="flex flex-wrap gap-2">
-                                {['Operator', 'Explorer', 'Collaborator', 'Creator', 'Analyst'].map((option) => (
+                                {['Accelerator', 'Operator', 'Tailor', 'Architect'].map((option) => (
                                   <span 
                                     key={option}
                                     className={`text-xs px-2 py-1 rounded font-medium ${
@@ -675,7 +659,7 @@ export default function AISuccessBlueprint() {
                             </div>
                             <div className="mb-2">
                               <div className="flex flex-wrap gap-2">
-                                {['AI Curious', 'Capable but Cautious', 'Power User', 'Skeptical but Open', 'Engaged and Enabled'].map((option) => {
+                                {['Capable but Cautious', 'Engaged and Enabled', 'Interested but Inexperienced', 'Disengaged and Doubtful'].map((option) => {
                                   const aiMindsetLabel = feedbackData?.Market?.UserAIMindset?.label?.toLowerCase().trim() || '';
                                   const optionLower = option.toLowerCase().trim();
                                   const isSelected = aiMindsetLabel === optionLower || 
