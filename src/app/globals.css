@@ -189,16 +189,12 @@ body {
   animation-delay: 0.5s;
 }
 
-/* Force black text in all text inputs */
-.force-black-text {
-  color: #000000 !important;
-  -webkit-text-fill-color: #000000 !important;
-}
-
-/* Ensure entered text is always black, not placeholder */
+/* Force black text ONLY for entered text, preserve placeholder color */
 textarea.force-black-text {
   color: #000000 !important;
   -webkit-text-fill-color: #000000 !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
 }
 
 textarea.force-black-text:focus {
@@ -206,13 +202,10 @@ textarea.force-black-text:focus {
   -webkit-text-fill-color: #000000 !important;
 }
 
-/* Override any webkit background-clip that might affect text visibility */
-textarea.force-black-text,
-textarea.force-black-text:focus,
-textarea.force-black-text:active {
-  background-clip: border-box !important;
-  -webkit-background-clip: border-box !important;
-  -webkit-text-fill-color: #000000 !important;
+/* Keep placeholder text in its original brownish color */
+textarea.force-black-text::placeholder {
+  color: rgba(185, 122, 60, 0.4) !important;
+  -webkit-text-fill-color: rgba(185, 122, 60, 0.4) !important;
 }
 
 /* Scrollbar hide/show on hover */
