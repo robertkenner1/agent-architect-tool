@@ -195,6 +195,26 @@ body {
   -webkit-text-fill-color: #000000 !important;
 }
 
+/* Ensure entered text is always black, not placeholder */
+textarea.force-black-text {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+textarea.force-black-text:focus {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Override any webkit background-clip that might affect text visibility */
+textarea.force-black-text,
+textarea.force-black-text:focus,
+textarea.force-black-text:active {
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
 /* Scrollbar hide/show on hover */
 .scrollbar-hide {
   scrollbar-width: none; /* Firefox */
