@@ -5,8 +5,7 @@ import { FaSlack } from 'react-icons/fa';
 
 export function NextStepsSection() {
   const handleContactUs = () => {
-    // TODO: Replace with actual Slack URL
-    window.open('https://slack.com', '_blank');
+    window.open('https://grammarly.enterprise.slack.com/archives/C09515DHMFH', '_blank');
   };
 
   const handleDownloadReport = () => {
