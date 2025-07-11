@@ -33,20 +33,20 @@ export function NextStepsSection() {
         <div className="flex flex-wrap gap-3">
           <button
             onClick={handleContactUs}
-            className="flex items-center gap-2 rounded-xl transition-all duration-300 ease-in-out h-9 text-[#b97a3c] hover:bg-[#e6dcc7] px-3"
+            className="flex items-center gap-2 rounded-xl transition-all duration-300 ease-in-out h-9 bg-[#e6dcc7] hover:bg-[#d4c4a8] px-3"
           >
-            <FaSlack className="w-4 h-4" />
-            <span className="text-sm font-medium">Contact Us on Slack</span>
+            <FaSlack className="w-4 h-4 text-[#b97a3c]" />
+            <span className="text-sm font-medium text-[#b97a3c]">Contact Us on Slack</span>
           </button>
           
           <button
             onClick={handleDownloadReport}
-            className="flex items-center gap-2 rounded-xl transition-all duration-300 ease-in-out h-9 text-[#b97a3c] hover:bg-[#e6dcc7] px-3"
+            className="flex items-center gap-2 rounded-xl transition-all duration-300 ease-in-out h-9 bg-[#e6dcc7] hover:bg-[#d4c4a8] px-3"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 text-[#b97a3c]">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
-            <span className="text-sm font-medium">Download Report</span>
+            <span className="text-sm font-medium text-[#b97a3c]">Download Report</span>
           </button>
         </div>
       </div>

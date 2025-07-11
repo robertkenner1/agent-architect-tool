@@ -478,7 +478,19 @@ export default function AISuccessBlueprint() {
                         
                         <div className="space-y-4 text-black">
                           <p className="text-base text-[#4b3a1a]">
-                            Your agent is a <span className="font-medium">{maturityData?.classification?.maturity_classification_name || 'task agent'}</span> with {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1'} maturity. {(() => {
+                            Your agent is a {(() => {
+                              const level = maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1';
+                              const agentName = maturityData?.classification?.maturity_classification_name || 'task agent';
+                              
+                              // Use the gold color from primary button background
+                              const color = '#b97a3c';
+                              
+                              return (
+                                <span className="font-bold" style={{ color }}>
+                                  {agentName}
+                                </span>
+                              );
+                            })()} with {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1'} maturity. {(() => {
                               const level = maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1';
                               const definitions = {
                                 'L0': 'It passively pushes and pulls data from external sources with no decision-making or end-to-end ownership.',
@@ -492,7 +504,7 @@ export default function AISuccessBlueprint() {
                           {/* Evolution section - only for non-L2 agents */}
                           {maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') !== 'L2' && (
                             <div className="mt-6">
-                              <p className="text-base font-medium text-black mb-3">To increase its maturity level:</p>
+                              <p className="text-base text-black mb-3">To increase its maturity level:</p>
                               
                               <ul className="space-y-1 text-black ml-4">
                                 {(() => {
@@ -593,8 +605,9 @@ export default function AISuccessBlueprint() {
                                   let isSelected = false;
                                   
                                   if (option === 'Both') {
-                                    // "Both" is selected if the API response contains both "knowledge" and "student"
-                                    isSelected = userTypeLabel.includes('knowledge') && userTypeLabel.includes('student');
+                                    // "Both" is selected if the API response contains "both" or contains both "knowledge" and "student"
+                                    isSelected = userTypeLabel.includes('both') || 
+                                               (userTypeLabel.includes('knowledge') && userTypeLabel.includes('student'));
                                   } else {
                                     // Regular matching for individual options
                                     isSelected = userTypeLabel === optionLower || 
