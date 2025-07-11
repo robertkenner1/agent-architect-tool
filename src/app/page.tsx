@@ -262,7 +262,7 @@ export default function AISuccessBlueprint() {
         </div>
         <div className="flex items-center gap-6">
           <a
-            href="https://coda.io/d/Agents-PMM-Workstream_dX5sirzk5jp/Agent-Framework_suamSShJ"
+            href="https://coda.io/d/_dE1WFjyTIE5/Introduction_suiivPlw"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#b97a3c] text-base font-semibold hover:underline transition"
