@@ -37,7 +37,7 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     - Orchestration: Just a utility – no orchestration. No defined job beyond data sync. Cannot invoke or respond to other agents
     - Intelligence: Data access only – no interpretation. Does not adapt or learn from feedback or data
     
-    L1 - Task Agents
+    L1 - Solution Agents
     Definition: Agents built to solve a defined use case, often across multiple tools. They may call other agents or use internal “skills.” Have an opinion about their role. Usually single-step assistance.
     Characteristics:
     - Proactivity: Sometimes proactive. Triggered by external user action or internal schedule. Trigger: Hybrid – Manual / Reactive / Scheduled
@@ -46,7 +46,7 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     - Orchestration: Single JTBD scope; may coordinate sub-tasks or call helper agents or skills
     - Intelligence: Uses user/content/org context. Often maintains short-term memory state and adapts with config or feedback
 
-    L2 - Collaborative Agents
+    L2 - Workflow Agents
     Definition: Strategic agents that coordinate end-to-end workflows, invoking other agents and tools to achieve outcomes. Proactive by design. Can string together multiple steps, tools, or goals.
     Characteristics:
     - Proactivity: Fully proactive. Initiates actions based on context or monitoring. Trigger: Push-first – Proactive / Chained / Scheduled
@@ -245,7 +245,7 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
     "use_case_ownership_level": "l2",
     "use_case_ownership_description": "Specific JTBD: sales email response mgmt",
     "orchestration_level": "l1",
-    "orchestration_description": "May call out to CRM/task agents",
+              "orchestration_description": "May call out to CRM/solution agents",
     "intelligence_level": "l1",
     "intelligence_description": "Understands thread/user state; may tailor tone",
     "maturity_classification": "L1"
@@ -462,7 +462,7 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
 
   **Your task is to classify the agent into one of the maturity levels based on the description provided.**
   Then, if the agent maturity level is Low or Medium, make suggestions for how to improve the agent's maturity level.
-  Start the suggestions with: "Your idea is currently classified as a <Connector Agent (Low) |Task Agent (Medium)|Collaborative Agent (High)>. Here are some suggestions for how to improve the agent's maturity level: ..."
+          Start the suggestions with: "Your idea is currently classified as a <Connector Agent (Low) |Solution Agent (Medium)|Workflow Agent (High)>. Here are some suggestions for how to increase the agent's maturity level: ..."
 
   Output ONLY the raw JSON object below with no additional text, explanations, or markdown formatting. Do not wrap in code blocks. Return valid JSON that can be parsed directly:
 
@@ -482,7 +482,7 @@ export function classifyAgentMaturity(description: string): ChatMessage[] {
       "intelligence_level": "<high|medium-high|medium|medium-low|low>",
       "intelligence_description": "<description>",
       "maturity_classification": "<Low|Medium|High>",
-      "maturity_classification_name": "<Connector Agent|Task Agent|Collaborative Agent>"
+                "maturity_classification_name": "<Connector Agent|Solution Agent|Workflow Agent>"
     },
     "suggestions": "<suggestions for how to improve the agent's maturity level>"
   }

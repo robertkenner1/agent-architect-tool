@@ -19,14 +19,14 @@ const maturityLevels = [
   {
     id: 'L1', 
     label: 'L1',
-    name: 'Task Agent',
+          name: 'Solution Agent',
     description: 'Built to solve defined use cases, often across multiple tools, and may call other agents or use internal skills with some opinion about their role.',
     shortDesc: 'Solves specific tasks'
   },
   {
     id: 'L2',
     label: 'L2', 
-    name: 'Collaborative Agent',
+          name: 'Workflow Agent',
     description: 'Strategic agents that coordinate end-to-end workflows, invoke other agents and tools to achieve outcomes, and are proactive by design.',
     shortDesc: 'End-to-end coordination'
   }
@@ -60,11 +60,11 @@ export function MaturitySlider({ value, onChange, originalLevel }: MaturitySlide
                   <div className="text-xs text-gray-300">Data sync only</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-yellow-300">L1 - Task Agent</div>
+                  <div className="font-semibold text-yellow-300">L1 - Solution Agent</div>
                   <div className="text-xs text-gray-300">Solves specific tasks</div>
                 </div>
                 <div>
-                  <div className="font-semibold text-green-300">L2 - Collaborative Agent</div>
+                  <div className="font-semibold text-green-300">L2 - Workflow Agent</div>
                   <div className="text-xs text-gray-300">End-to-end coordination</div>
                 </div>
               </div>

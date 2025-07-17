@@ -424,13 +424,13 @@ export default function AISuccessBlueprint() {
                               },
                               {
                                 level: 'L1',
-                                name: 'Task agents',
+                                name: 'Solution agents',
                                 description: 'solve defined use cases with moderate autonomy',
                                 current: (maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1') === 'L1'
                               },
                               {
                                 level: 'L2',
-                                name: 'Collaborative agents',
+                                name: 'Workflow agents',
                                 description: 'coordinate end-to-end workflows strategically',
                                 current: (maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1') === 'L2'
                               }
@@ -480,7 +480,7 @@ export default function AISuccessBlueprint() {
                           <p className="text-base text-[#4b3a1a]">
                             Your agent is a {(() => {
                               const level = maturityData?.classification?.maturity_classification?.replace('Low', 'L0').replace('Medium', 'L1').replace('High', 'L2') || 'L1';
-                              const agentName = maturityData?.classification?.maturity_classification_name || 'task agent';
+                              const agentName = maturityData?.classification?.maturity_classification_name || 'solution agent';
                               
                               // Use the gold color from primary button background
                               const color = '#b97a3c';

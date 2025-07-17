@@ -8,8 +8,8 @@ export async function generateMaturitySummary(
 
 Maturity levels:
 - L0 (Connector Agent): Passively push/pull data, minimal decision-making, no end-to-end ownership
-- L1 (Task Agent): Solve defined use cases across tools, some autonomy within scope  
-- L2 (Collaborative Agent): Strategic coordination, proactive, full workflow ownership
+- L1 (Solution Agent): Solve defined use cases across tools, some autonomy within scope
+- L2 (Workflow Agent): Strategic coordination, proactive, full workflow ownership
 
 Be specific about capabilities and limitations at this level. Focus on what the agent can and cannot do.`;
 
@@ -47,8 +47,8 @@ export async function generateExpandedIdea(
 
 Maturity levels:
 - L0 (Connector Agent): Focus on data sync, basic integrations, manual triggers
-- L1 (Task Agent): Add contextual understanding, some automation, defined workflows  
-- L2 (Collaborative Agent): Full automation, predictive actions, complex orchestration
+- L1 (Solution Agent): Add contextual understanding, some automation, defined workflows
+- L2 (Workflow Agent): Full automation, predictive actions, complex orchestration
 
 Return ONLY the bullet points, one per line, starting with "- ". Be concrete and specific.`;
 
@@ -98,11 +98,11 @@ export function formatMaturityLevel(level: 'L0' | 'L1' | 'L2'): { name: string; 
       description: 'Passively push and pull data from external sources with simple data ingress/egress, minimal decision-making, and no end-to-end use case ownership.'
     },
     'L1': {
-      name: 'Task Agent', 
+      name: 'Solution Agent', 
       description: 'Built to solve defined use cases, often across multiple tools, and may call other agents or use internal skills with some opinion about their role.'
     },
     'L2': {
-      name: 'Collaborative Agent',
+      name: 'Workflow Agent',
       description: 'Strategic agents that coordinate end-to-end workflows, invoke other agents and tools to achieve outcomes, and are proactive by design.'
     }
   };

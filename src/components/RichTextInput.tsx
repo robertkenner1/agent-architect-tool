@@ -31,7 +31,7 @@ const placeholderExamples = [
       "• Generates CSV files for backup purposes"
     ]
   },
-  // L1 - Task Agents
+      // L1 - Solution Agents
   {
     title: "Content Moderation Agent",
     description: "Reviews and filters user-generated content using AI detection models.",
@@ -50,7 +50,7 @@ const placeholderExamples = [
       "• Routes to appropriate managers based on approval thresholds"
     ]
   },
-  // L2 - Collaborative Agents  
+      // L2 - Workflow Agents  
   {
     title: "Project Orchestration Agent",
     description: "Manages end-to-end project workflows by coordinating teams and resources.",
